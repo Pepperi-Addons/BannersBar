@@ -1,0 +1,114 @@
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/variables' as variables;
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/mixins';
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/functions';
+
+.banners-container{
+    display: grid;
+ 
+
+    &.gap-xs{
+        gap: variables.$spacing-xs;
+    }
+    &.gap-sm{
+        gap: variables.$spacing-sm;
+    }
+    &.gap-md{
+        gap: variables.$spacing-md;
+    }
+    &.gap-lg{
+        gap: variables.$spacing-lg;
+    }
+    &.gap-xl{
+        gap: variables.$spacing-xl;
+    }
+
+    .padding-sm{
+        padding: variables.$spacing-sm;
+    }
+    .padding-md{
+        padding: variables.$spacing-md;
+    }
+    .padding-lg{
+        padding: variables.$spacing-lg;
+    }
+    .padding-xl{
+        padding: variables.$spacing-xl;
+    }
+
+    .user-secondary{
+        &.weak ::ng-deep {
+            @include mixins.state-weak-default('color-user-secondary');
+        }
+        
+        &.regular ::ng-deep {
+            @include mixins.state-regular-default('color-user-secondary');
+        }
+        
+        &.strong ::ng-deep {
+            @include mixins.state-strong-default('color-user-secondary');
+        }
+    }
+
+    .user-primary{
+        &.weak ::ng-deep {
+            @include mixins.state-weak-default('color-user-primary');
+        }
+        
+        &.regular ::ng-deep {
+            @include mixins.state-regular-default('color-user-primary');
+        }
+        
+        &.strong ::ng-deep {
+            @include mixins.state-strong-default('color-user-primary');
+
+        }
+    }
+    
+    .system-primary-invert{
+        &.weak ::ng-deep {
+            @include mixins.state-weak-default('color-system-primary-invert');
+        }
+        
+        &.regular ::ng-deep {
+            @include mixins.state-regular-default('color-system-primary-invert');
+        }
+        
+        &.strong ::ng-deep {
+            @include mixins.state-strong-default('color-system-primary-invert');
+
+            .icon-button.strong,
+            .icon-button.regular,
+            .icon-button.weak {
+                $color: functions.get-pep-color(color-text, color-main);
+
+                .svg-icon {
+                    @include mixins.svg-icon-color($color);
+                }
+            }
+        }
+    }
+
+    .system-primary{
+        &.weak ::ng-deep {
+            @include mixins.state-weak-default('color-system-primary');
+        }
+        
+        &.regular ::ng-deep {
+            @include mixins.state-regular-default('color-system-primary');
+        }
+        
+        &.strong ::ng-deep {
+            @include mixins.state-strong-default('color-system-primary');
+
+            .icon-button.strong,
+            .icon-button.regular,
+            .icon-button.weak {
+                $color: functions.get-pep-color(color-text, color-main);
+
+                .svg-icon {
+                    @include mixins.svg-icon-color($color);
+                }
+            }
+        }
+    }
+}

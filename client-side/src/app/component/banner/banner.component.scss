@@ -1,0 +1,34 @@
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/variables' as ngx-variables;
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/functions' as ngx-functions;
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/mixins' as ngx-mixins;
+
+:host{
+    display: flex; 
+    height: 100%;
+    align-items: center; 
+    justify-content: space-between;
+
+    .icon-container{
+        aspect-ratio : 1/1;
+        max-height: 4rem;
+        overflow: hidden;
+
+        img{
+            aspect-ratio: 1/1;
+       }
+    }
+
+    .text-container{
+        display:grid;
+        width: -webkit-fill-available;
+
+        span{
+            /*width: fit-content;*/
+
+            &.underline-text{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+}

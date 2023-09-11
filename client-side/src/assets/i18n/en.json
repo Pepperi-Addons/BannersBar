@@ -1,0 +1,94 @@
+{
+    "EDITOR": {
+         "TABS": {
+             "GENERAL": "General",
+             "CONTENT": "Content"
+         },
+         "GENERAL":{
+            "BANNER": "Banner",
+            "LAYOUT": "Layout",
+            "MAX_COLUMNS": "Max column",
+            "GAP": "Gap",
+             "PADDING": "Padding",
+             "BORDER_RADIUS": "Border radius",
+             "CHOOSE_BORDER_RADIUS": "Choose border radius",
+             "WIDTH": "Width",
+             "WIDTH_TYPE": "Choose width type",
+             "WIDTH_TYPES": {
+                 "DYNAMIC": "Dynamic",
+                 "SET": "Set",
+                 "STRETCH": "Stretch"
+             },
+             "SET_WIDTH": "Set width (rem)",
+             "ALIGN": "Align",
+             "VERTICAL_POS": "Vertical position",
+             "VERTICAL_ALIGN": {
+                 "TOP": "Top",
+                 "MIDDLE": "Middle",
+                 "BOTTOM": "Bottom"
+             },
+             "HORIZONTAL_POS": "Horizontal position",
+             "BANNER_SIZE": "Banner size",
+             "CHOOSE_BANNER_SIZE": "Choose banner size",
+             "ON_LOAD_FLOW": "On load flow",
+             "FLOW_DESCRIPTION": "Choose on load flow",
+             "CHOOSE_FLOW": "Choose flow"
+         },
+         "CONTENT":{
+            "BANNER_STYLE": "Banner style",
+            "COLOR":{
+                "COLOR": "Color",
+                "STYLE": "Style",
+                "TYPE": {
+                    "SYSTEM": "System",
+                    "SYSTEM_INVERT": "Invert",
+                    "PRIMARY": "Primary",
+                    "SECONDARY": "Secondary"
+                 }
+            },
+             "BANNERS": "Banners",
+             "FIRST_TITLE": "1st Title",
+             "SECOND_TITLE": "2nd Title",
+             "BANNER_TEXT": "Banner label",
+             "BANNER_VALUE": "Banner value",
+             "STYLE": "Style",
+             "CHOOSE_STYLE": "Choose banner style",
+             "STYLES":{
+                 "WEAK": "Weak",
+                 "REGULAR": "Regular",
+                 "STRONG": "Strong"
+             },
+             "TITLE_STYLE": {
+                "BODY": "Body",
+                "HEADING": "Heading"
+             },
+             "TEXT_SIZE": "Text size",
+             "ICON": {
+                 "TITLE": "Icon",
+                 "CHOOSE_ICON": "Choose icon",
+                 "CHOOSE_POSITION": "Choose icon position",
+                 "POSITION": {
+                     "START": "Start",
+                     "END": "End"
+                 }
+             },
+             "BADGE": "Badge",
+             "LINK_BADGE": "Badge label",
+             "ON_CLICK_FLOW": "On click flow",
+             "FLOW_DESCRIPTION": "Choose flow to run when banner click",
+             "CONSUMER": "Cunsumer",
+             "SELECT_CONSUMER": "Select a cunsumer",
+             "ADD_BANNER": "Add new banner",
+             "CLICKED_AREA":{
+                "CLICK_EVENT": "Click event",
+                "WHEN_CLICK": "When click",
+                "CLICK_TRIGER": "Click triger",
+                "BANNER": "Banner",
+                "FIRST_TITLE": "1st Title",
+                "SECOND_TITLE": "2nd Title"
+             }
+         }
+ 
+    }
+ }
+ 

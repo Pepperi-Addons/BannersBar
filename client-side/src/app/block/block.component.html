@@ -1,0 +1,19 @@
+<!-- [ngStyle]="getStyles()"-->
+<div class="banners-container" [ngClass]="['gap-'+ configuration?.ButtonsBarConfig?.Structure?.Gap || 'none']"
+                               [ngStyle]="{'grid-template-columns' : 'repeat('+this.configuration.ButtonsBarConfig.Structure.MaxColumns+', 1fr)'}">
+    
+   
+
+    <banner *ngFor="let banner of configuration?.Buttons || []; let currentButton = index"
+            [banner]="banner"
+            class="banner-container"
+            [ngClass]="['border-radius-' + configuration.ButtonsBarConfig?.Structure?.BorderRadius,
+                    'padding-' + configuration.ButtonsBarConfig?.Structure?.Padding,
+                    banner.Color, banner.Style]"
+            [ngStyle]="{'flex-direction' : (banner.Icon.Position == 'end' ? 'unset' : 'row-reverse'),
+                    'justify-content': 'start',
+                     'cursor': banner.ClickedArea == 'banner' ? 'pointer' : 'inherit'}"
+            (click)="onBannerClick($event, banner.id)"
+            (bannerClick)="onBannerTextClick($event)">
+    </banner> 
+</div>

@@ -1,0 +1,106 @@
+<div class="card-editor-container">
+    <div>
+        <pep-button classNames="lock-events" sizeType="xs" iconName="system_move"></pep-button>
+    </div>
+    <div *ngIf="title !== ''" class="title-container">
+        <span class="body-sm ellipsis">{{id + 1}}.&nbsp;</span>
+        <span class="body-sm color-link bold ellipsis" title="">{{configuration?.FirstTitle?.Label || 'TITLE'}}</span>
+    </div>
+    <div class="actions" *ngIf="showActions">
+        <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();"></pep-button>
+        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_down" (buttonClick)="onEditClick();"></pep-button>
+        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button>
+    </div>
+    <div class="editorCont" *ngIf="id == selectedButton"> 
+        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNER_STYLE' | translate}}</label>
+        <div class="selectCont">
+            <pep-select [label]="'EDITOR.CONTENT.COLOR.COLOR' | translate" [value]="configuration?.Color || 'system-primary'" 
+                        [options]="bannerColor" (valueChange)="onFieldChange('Color',$event)" [emptyOption]="false" 
+                        styleType="regular"></pep-select>
+            <pep-select [label]="'EDITOR.CONTENT.COLOR.STYLE' | translate" [value]="configuration?.Style || 'weak'" 
+                        [options]="bannerStyle" (valueChange)="onFieldChange('Style',$event)" [emptyOption]="false" 
+                        styleType="weak">
+          </pep-select>
+      </div>
+       
+        <pep-icon-picker 
+                [header]="'EDITOR.CONTENT.ICON.TITLE' | translate"
+                [iconURL]="configuration?.Icon?.Url || ''"
+                [disabled]="!configuration?.Icon.UseIcon" 
+                (iconChange)="onIconChange($event)"
+                (iconDisableChange)="onUseIconChange($event)">
+        </pep-icon-picker>
+
+        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="iconPosition" [header]="" class="margin-bottom"
+                [disabled]="!configuration?.Icon.UseIcon"
+                [subHeader]="'EDITOR.CONTENT.ICON.CHOOSE_POSITION' | translate"
+                [btnKey]="configuration?.Icon?.Position">
+        </pep-group-buttons-settings>
+
+        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.FIRST_TITLE' | translate}}</label>
+        <pep-textbox [label]="'EDITOR.CONTENT.BANNER_TEXT' | translate" 
+                    [value]="configuration?.FirstTitle?.Label" 
+                    (valueChange)="onFieldChange('FirstTitle.Label',$event)">
+        </pep-textbox>
+
+        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="textStyle" [header]="" class="margin-bottom"
+                [subHeader]="'EDITOR.CONTENT.STYLE' | translate"
+                [btnKey]="configuration?.FirstTitle?.Style">
+        </pep-group-buttons-settings>
+
+        <pep-group-buttons-settings 
+                pepResetConfigurationField="configuration?.FirstTitle?.Size" 
+                [hideReset]="configuration?.FirstTitle?.Size === configurationSource?.FirstTitle?.Size" 
+                [resetHostEvents]="hostEvents"
+                [groupType]="'sizes'" 
+                [subHeader]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
+                [btnKey]="configuration?.FirstTitle?.Size" [useNone]="false" [excludeKeys]="['xs']" class="margin-bottom"
+                (btnkeyChange)="onFieldChange('FirstTitle.Size',$event)">
+        </pep-group-buttons-settings>
+
+
+        <pep-checkbox class="checkbox-as-title" 
+            [value]="configuration?.SecondTitle?.Use || false" 
+            [label]="'EDITOR.CONTENT.SECOND_TITLE' | translate" 
+            [renderTitle]="false" 
+            (valueChange)="onFieldChange('SecondTitle.Use',$event)">
+        </pep-checkbox>
+        <pep-textbox [label]="'EDITOR.CONTENT.BANNER_TEXT' | translate" 
+                    [disabled]="!configuration?.SecondTitle.Use"
+                    [value]="configuration?.SecondTitle?.Label" 
+                    (valueChange)="onFieldChange('SecondTitle.Label',$event)">
+        </pep-textbox>
+
+        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="secTextStyle" [header]="" class="margin-bottom"
+                [subHeader]="'EDITOR.CONTENT.STYLE' | translate"
+                [disabled]="!configuration?.SecondTitle.Use"
+                [btnKey]="configuration?.SecondTitle?.Style">
+        </pep-group-buttons-settings>
+
+        <pep-group-buttons-settings 
+                pepResetConfigurationField="configuration?.SecondTitle?.Size" 
+                [hideReset]="configuration?.SecondTitle?.Size === configurationSource?.SecondTitle?.Size" 
+                [resetHostEvents]="hostEvents"
+                [groupType]="'sizes'" 
+                [subHeader]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
+                [disabled]="!configuration?.SecondTitle.Use"
+                [btnKey]="configuration?.SecondTitle?.Size" [useNone]="false" [excludeKeys]="['2xl']" class="margin-bottom"
+                (btnkeyChange)="onFieldChange('SecondTitle.Size',$event)">
+        </pep-group-buttons-settings>
+
+        <!-- <div>
+            <label class="body-lg bold ellipsis">{{'EDITOR.CONTENT.ON_CLICK_FLOW' | translate}}</label> 
+            <label class="body-xs normal">{{'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate}}</label>
+            <pep-button class="script-button" [value]="btnFlowName ? btnFlowName : ('EDITOR.GENERAL.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button>
+         </div> -->
+         <div>
+                <label class="body-lg bold ellipsis">{{'EDITOR.CONTENT.ON_CLICK_FLOW' | translate}}</label> 
+                <pep-field-title [label]="'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate"></pep-field-title>
+                <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+        </div>
+         
+         <pep-select [label]="'EDITOR.CONTENT.CLICKED_AREA.CLICK_TRIGER' | translate" [value]="configuration?.ClickedArea || 'banner'" 
+                     [options]="clickedAreas" (valueChange)="onFieldChange('ClickedArea',$event)" [emptyOption]="false">
+        </pep-select>
+    </div>
+</div>
