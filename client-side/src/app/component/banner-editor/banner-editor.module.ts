@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonEditorComponent } from './button-editor.component'
+import { BannerEditorComponent } from './banner-editor.component'
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
 import { PepMenuModule } from '@pepperi-addons/ngx-lib/menu';
@@ -32,7 +32,7 @@ const pepIcons = [
     pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt
 ]
 @NgModule({
-    declarations: [ButtonEditorComponent],
+    declarations: [BannerEditorComponent],
     imports: [
         CommonModule,
         DragDropModule,
@@ -61,9 +61,9 @@ const pepIcons = [
             }, isolate: false
         }),
     ],
-    exports: [ButtonEditorComponent]
+    exports: [BannerEditorComponent]
 })
-export class ButtonEditorModule {
+export class BannerEditorModule {
     constructor(
         private pepIconRegistry: PepIconRegistry,
     ) {

@@ -1,8 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { PepColorService} from '@pepperi-addons/ngx-lib';
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
-import { ButtonEditor }  from '../../banners-bar.model';
+import { BannerEditor }  from '../../banners-bar.model';
 import { FlowService } from '../../../services/flow.service';
 
 interface groupButtonArray {
@@ -11,18 +10,21 @@ interface groupButtonArray {
 }
 
 @Component({
-    selector: 'button-editor',
-    templateUrl: './button-editor.component.html',
-    styleUrls: ['./button-editor.component.scss']
+    selector: 'banner-editor',
+    templateUrl: './banner-editor.component.html',
+    styleUrls: ['./banner-editor.component.scss']
 })
-export class ButtonEditorComponent implements OnInit {
+export class BannerEditorComponent implements OnInit {
 
-    @Input() configuration: ButtonEditor;
+    @Input() configuration: BannerEditor;
+    
+    public _configurationSource: BannerEditor;
     @Input() 
     set configurationSource(value: any) {
-        this.configuration = value;
+        this._configurationSource = value;
     }
-    //configurationSource: ButtonEditor;
+    
+    //configurationSource: BannerEditor;
     @Input() id: number;
     @Input() selectedButton: number;
 
@@ -119,11 +121,11 @@ export class ButtonEditorComponent implements OnInit {
         if(key.indexOf('.') > -1){
             let keyObj = key.split('.');
             this.configuration[keyObj[0]][keyObj[1]] = value;
-            this.updateHostObjectField(`Buttons[${this.id}][${keyObj[0]}][${keyObj[1]}]`, value);
+            this.updateHostObjectField(`Banners[${this.id}][${keyObj[0]}][${keyObj[1]}]`, value);
         }
         else{
             this.configuration[key] = value;
-            this.updateHostObjectField(`Buttons[${this.id}][${key}]`, value);
+            this.updateHostObjectField(`Banners[${this.id}][${key}]`, value);
             
         }
     }
@@ -198,7 +200,7 @@ export class ButtonEditorComponent implements OnInit {
     //             if (event.action === 'on-done') {
     //                     const base64Flow = btoa(JSON.stringify(event.data));
     //                     this.configuration['Flow'] = base64Flow;
-    //                     this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
+    //                     this.updateHostObjectField(`Banners[${this.id}]['Flow']`, base64Flow);
     //                     this.dialogRef.close();
     //                     this.btnFlowName = await this.bannerBarService.getFlowName(event.data.FlowKey) || undefined;
     //             } else if (event.action === 'on-cancel') {
@@ -212,7 +214,7 @@ export class ButtonEditorComponent implements OnInit {
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
         this.configuration['Flow'] = base64Flow;
-        this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
+        this.updateHostObjectField(`Banners[${this.id}]['Flow']`, base64Flow);
     }
 
     onIconChange(event){

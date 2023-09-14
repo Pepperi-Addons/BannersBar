@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
 import { BlockEditorComponent } from './index';
-import { ButtonEditorModule } from '../component/button-editor/button-editor.module';
+import { BannerEditorModule } from '../component/banner-editor/banner-editor.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PepSliderModule } from '@pepperi-addons/ngx-lib/slider';
@@ -22,7 +22,7 @@ import { config } from '../app.config';
     imports: [
         CommonModule,
         MatTabsModule,
-        ButtonEditorModule,
+        BannerEditorModule,
         DragDropModule,
         PepSliderModule,
         PepGroupButtonsModule,

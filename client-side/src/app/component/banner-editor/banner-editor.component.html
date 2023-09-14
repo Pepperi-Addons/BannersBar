@@ -2,14 +2,14 @@
     <div>
         <pep-button classNames="lock-events" sizeType="xs" iconName="system_move"></pep-button>
     </div>
-    <div *ngIf="title !== ''" class="title-container">
+    <div *ngIf="title !== ''" class="title-container" (click)="onEditClick();">
         <span class="body-sm ellipsis">{{id + 1}}.&nbsp;</span>
         <span class="body-sm color-link bold ellipsis" title="">{{configuration?.FirstTitle?.Label || 'TITLE'}}</span>
     </div>
     <div class="actions" *ngIf="showActions">
+        <pep-button *ngIf="true" sizeType="xs" iconName="system_copy" (buttonClick)="onEditClick();"></pep-button>
         <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();"></pep-button>
-        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_down" (buttonClick)="onEditClick();"></pep-button>
-        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button>
+        <!-- <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button> -->
     </div>
     <div class="editorCont" *ngIf="id == selectedButton"> 
         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNER_STYLE' | translate}}</label>
@@ -50,7 +50,7 @@
 
         <pep-group-buttons-settings 
                 pepResetConfigurationField="configuration?.FirstTitle?.Size" 
-                [hideReset]="configuration?.FirstTitle?.Size === configurationSource?.FirstTitle?.Size" 
+                [hideReset]="configuration?.FirstTitle?.Size === _configurationSource?.FirstTitle?.Size" 
                 [resetHostEvents]="hostEvents"
                 [groupType]="'sizes'" 
                 [subHeader]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
@@ -79,7 +79,7 @@
 
         <pep-group-buttons-settings 
                 pepResetConfigurationField="configuration?.SecondTitle?.Size" 
-                [hideReset]="configuration?.SecondTitle?.Size === configurationSource?.SecondTitle?.Size" 
+                [hideReset]="configuration?.SecondTitle?.Size === _configurationSource?.SecondTitle?.Size" 
                 [resetHostEvents]="hostEvents"
                 [groupType]="'sizes'" 
                 [subHeader]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
@@ -94,12 +94,17 @@
             <pep-button class="script-button" [value]="btnFlowName ? btnFlowName : ('EDITOR.GENERAL.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button>
          </div> -->
          <div>
-                <label class="body-lg bold ellipsis">{{'EDITOR.CONTENT.ON_CLICK_FLOW' | translate}}</label> 
-                <pep-field-title [label]="'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate"></pep-field-title>
-                <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+                <pep-checkbox class="checkbox-as-title" 
+                        [value]="configuration?.UseFlow || false" 
+                        [label]="'EDITOR.CONTENT.CLICK_EVENT' | translate" 
+                        [renderTitle]="false" 
+                        (valueChange)="onFieldChange('UseFlow',$event)">
+                </pep-checkbox>
+                <pep-field-title [disabled]="!configuration?.UseFlow" [label]="'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate"></pep-field-title>
+                <pep-flow-picker-button [disabled]="!configuration?.UseFlow" [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
         </div>
          
-         <pep-select [label]="'EDITOR.CONTENT.CLICKED_AREA.CLICK_TRIGER' | translate" [value]="configuration?.ClickedArea || 'banner'" 
+         <pep-select [disabled]="!configuration?.UseFlow" [label]="'EDITOR.CONTENT.CLICKED_AREA.CLICK_TRIGER' | translate" [value]="configuration?.ClickedArea || 'banner'" 
                      [options]="clickedAreas" (valueChange)="onFieldChange('ClickedArea',$event)" [emptyOption]="false">
         </pep-select>
     </div>

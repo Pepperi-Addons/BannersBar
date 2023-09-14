@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { IButtonsBar, IHostObject } from '../banners-bar.model';
-import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
+import { IBanner, IHostObject } from '../banners-bar.model';
+import { CLIENT_ACTION_ON_BANNER_CLICK } from 'shared';
 
 
 @Component({
@@ -15,16 +15,18 @@ export class BlockComponent implements OnInit {
     
     @Input() 
     set hostObject(value: IHostObject){
-        this.configuration = value?.configuration;
+        if(value?.configuration && Object.keys(value.configuration).length){
+            this.configuration = value?.configuration;
+        }
     }
 
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
 
-    private _configuration: IButtonsBar;
-    get configuration(): IButtonsBar {
+    private _configuration: IBanner;
+    get configuration(): IBanner {
         return this._configuration;
     }
-    set configuration(conf: IButtonsBar){
+    set configuration(conf: IBanner){
         this._configuration = conf;    
     }
 
@@ -55,56 +57,50 @@ export class BlockComponent implements OnInit {
     }
 
   
-    onButtonClick(event){
+    onBannerClick(event, bannerID){
+        
+    if(event?.srcElement?.classList?.value.indexOf(this.configuration.Banners[bannerID].ClickedArea) > -1 || this.configuration.Banners[bannerID].ClickedArea === 'banner'){
 
-       const flowData = event.Flow || null;
-       const parameters = {
-            ButtonConfiguration: event
+        const flowData = this.configuration.Banners[bannerID].Flow || null;
+        const parameters = {
+                configuration: this.configuration
+                //: this.configuration.Banners[bannerID]
         }
         if(flowData){
-        // Parse the params if exist.
-        // const params = this.getScriptParams(event.ScriptData); 
-            try{
-                const eventData = {
-                    detail: {
-                        eventKey: CLIENT_ACTION_ON_BUTTONS_BAR_CLICK,
-                        eventData: { flow: flowData, parameters: parameters },
-                        completion: (res: any) => {
-                                if (res?.configuration && Object.keys(res.configuration).length > 0) {
-                                    this.configuration.Buttons[event.id] = {...this.configuration.Buttons[event.id], ...res.configuration};
-                                } else {
-                                    // Show default error.
+            // Parse the params if exist.
+            // const params = this.getScriptParams(event.ScriptData); 
+                try{
+                    const eventData = {
+                        detail: {
+                            eventKey: CLIENT_ACTION_ON_BANNER_CLICK,
+                            eventData: { flow: flowData, parameters: parameters },
+                            completion: (res: any) => {
+                                    if (res?.configuration && Object.keys(res.configuration).length > 0) {
+                                        this.configuration.Banners[bannerID] = {...this.configuration.Banners[bannerID], ...res.configuration};
+                                    } else {
+                                        // Show default error.
+                                    }
                                 }
-                            }
-                    }
-                };
+                        }
+                    };
 
-                const customEvent = new CustomEvent('emit-event', eventData);
-                window.dispatchEvent(customEvent);
-            }
-            catch(err){
+                    const customEvent = new CustomEvent('emit-event', eventData);
+                    window.dispatchEvent(customEvent);
+                }
+                catch(err){
 
+                }
             }
         }
     }
 
-    onBannerClick(event, bannerID){
-        if(event?.srcElement?.classList?.value.indexOf(this.configuration.Buttons[bannerID].ClickedArea) > -1 || this.configuration.Buttons[bannerID].ClickedArea === 'banner'){
-            alert('clicked');
-        }
-    //    if(this.configuration.Buttons[bannerID].ClickedArea === 'banner'){
-    //     alert('banner clicked');
-    //    }
-    //    else if(this.configuration.Buttons[bannerID].ClickedArea === 'first-title'){
-    //     alert('first title clicked');
-    //    }
-    //    else if(this.configuration.Buttons[bannerID].ClickedArea === 'second-title'){
-    //     alert('second title clicked');
-    //    }
-       //else if(event?.srcElement?.classList?.value.indexOf('banner-container') > -1 && )
-    }
+    // onBannerClick(event, bannerID){
+    //     if(event?.srcElement?.classList?.value.indexOf(this.configuration.Banners[bannerID].ClickedArea) > -1 || this.configuration.Banners[bannerID].ClickedArea === 'banner'){
+    //         this.onButtonClick(bannerID);
+    //     }
+    // }
 
-    onBannerTextClick(event){
-        //this.onBannerClick(event.event, event.id);
-    }
+    // onBannerTextClick(event){
+    //     this.onBannerClick(event.event, event.id);
+    // }
 }

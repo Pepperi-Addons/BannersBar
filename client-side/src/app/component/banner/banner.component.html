@@ -1,16 +1,14 @@
 <div #textCont class="text-container"
-                 [ngStyle]="{'text-align' : !banner.Icon.UseIcon ? 'center' : 'unset'}">
+                 [ngStyle]="{'justify-content' : !banner.Icon.UseIcon ? 'center' : 'unset'}">
                 <span class="first-title" 
                       [ngClass]="[(banner.FirstTitle.Style == 'heading' ? 'title-' : 'body-') + banner.FirstTitle.Size,
-                                  banner.ClickedArea == 'first-title' ? 'underline-text' : '']"
-                      (click)="onTextClick($event)">
+                                  banner.ClickedArea == 'first-title' ? 'underline-text' : '']">
                      {{banner.FirstTitle.Label || ''}}
                 </span>
                 <span class="second-title" 
                       *ngIf="banner?.SecondTitle?.Use" 
                       [ngClass]="[(banner.SecondTitle.Style == 'heading' ? 'title-' : 'body-') + banner.SecondTitle.Size,
-                                   banner.ClickedArea == 'second-title' ? 'underline-text' : '']"
-                      (click)="onTextClick($event)">
+                                   banner.ClickedArea == 'second-title' ? 'underline-text' : '']">
                       {{banner.SecondTitle.Label || ''}}
                 </span>
             </div>

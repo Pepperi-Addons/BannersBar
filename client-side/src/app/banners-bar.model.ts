@@ -26,20 +26,20 @@ export class Title {
     Size: PepSizeType = 'lg';
 }
 
-export class ButtonIcon {
+export class Icon {
     UseIcon: boolean = false;
     Position: iconPosition = 'end';
     Url: string = '';
 }
 
 export interface IHostObject {
-    configuration: IButtonsBar;
+    configuration: IBanner;
     parameters: any;
 }
 
-export interface IButtonsBar{
-    ButtonsBarConfig: IButtonsBarConfig,
-    Buttons: Array<ButtonEditor>
+export interface IBanner{
+    BannerConfig: IBannerConfig,
+    Banners: Array<BannerEditor>
 }
 
 export class Structure{
@@ -47,37 +47,21 @@ export class Structure{
     Gap: PepSizeType = 'sm';
     Padding: PepSizeType = 'sm';
     BorderRadius: PepSizeType | 'none' = 'none';
-    //WidthType: WidthType = 'set';
-    //Width: number = 8; // rem
-    //Size: PepSizeType = 'md';
-    //Alignment: Alignment = new Alignment();
 }
 
-// export class Button {
-//     Height: number = 16;
-//     TextColor: textColor = 'system-primary';
-//     Border: PepColorSettings = new PepColorSettings();
-//     DropShadow: PepShadowSettings = new PepShadowSettings();
-//     UseRoundCorners: boolean = true;
-//     RoundCornersSize: PepSizeType = 'md';
-// }
-
-export class IButtonsBarConfig{
+export class IBannerConfig{
     Structure: Structure = new Structure();
     OnLoadFlow: any;
 }
 
-export class ButtonEditor {
+export class BannerEditor {
     id: number;
     FirstTitle: Title = new Title();
     SecondTitle: Title = new Title();
     Style: PepStyleType = 'weak';
     Color: string = 'system-primary';
-    Icon: ButtonIcon = new ButtonIcon();
+    Icon: Icon = new Icon();
     ClickedArea: ClickedArea = 'banner';
-    /*Title: string = "defaultTitle";
-    Description: string = "defaultDescription";
-    AssetKey: string = '';
-    AssetURL: string = '';*/
+    UseFlow: boolean = false;
     Flow: any;
 }

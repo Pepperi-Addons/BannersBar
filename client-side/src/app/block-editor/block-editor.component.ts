@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { BannerBarService } from 'src/services/banner-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
-import { IButtonsBar, ButtonEditor, IButtonsBarConfig } from '../banners-bar.model';
+import { IBanner, BannerEditor, IBannerConfig } from '../banners-bar.model';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
 
@@ -15,7 +15,6 @@ export class BlockEditorComponent implements OnInit {
     
     @Input()
     set hostObject(value: any) {
-        debugger;
         if (value && value.configuration && Object.keys(value.configuration).length) {
                 this._configuration = value.configuration;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
@@ -31,17 +30,17 @@ export class BlockEditorComponent implements OnInit {
         //this._pageParameters = value?.pageParameters || {};
        //this._pageConfiguration = value?.pageConfiguration || this.defaultPageConfiguration;
     }
-    private _configuration: IButtonsBar;
-    get configuration(): IButtonsBar {
+    private _configuration: IBanner;
+    get configuration(): IBanner {
         return this._configuration;
     }
 
     private blockLoaded = false;
     public onloadFlowName = undefined;
-    public configurationSource: IButtonsBar;
+    public configurationSource: IBanner;
     //public widthTypes: Array<PepButton> = [];
     //public verticalAlign : Array<PepButton> = [];
-    public selectedButton: number = 0;
+    public selectedButton: number = -1;
     public flowHostObject;
 
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
@@ -76,12 +75,12 @@ export class BlockEditorComponent implements OnInit {
         //     { key: 'end', value: this.translate.instant('EDITOR.GENERAL.VERTICAL_ALIGN.BOTTOM'), callback: (event: any) => this.onFieldChange('Alignment.Vertical',event) }
         // ]
 
-        if(this.configuration?.ButtonsBarConfig?.OnLoadFlow){
-            const flow = JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow));
+        if(this.configuration?.BannerConfig?.OnLoadFlow){
+            const flow = JSON.parse(atob(this.configuration.BannerConfig.OnLoadFlow));
             this.onloadFlowName = await this.bannerBarService.getFlowName(flow.FlowKey);
         }
 
-        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.ButtonsBarConfig?.OnLoadFlow || null)); 
+        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
 
         this.blockLoaded = true;
     }
@@ -95,23 +94,23 @@ export class BlockEditorComponent implements OnInit {
  
         if(key.indexOf('.') > -1){
             let keyObj = key.split('.');
-            this.configuration.ButtonsBarConfig.Structure[keyObj[0]][keyObj[1]] = value;
+            this.configuration.BannerConfig.Structure[keyObj[0]][keyObj[1]] = value;
         }
         else{
-            this.configuration.ButtonsBarConfig.Structure[key] = value;
+            this.configuration.BannerConfig.Structure[key] = value;
         }
   
-        this.updateHostObjectField(`ButtonsBarConfig.Structure.${key}`, value);
+        this.updateHostObjectField(`BannerConfig.Structure.${key}`, value);
     }
 
     private loadDefaultConfiguration() {
         this._configuration = this.getDefaultHostObject();
         this.updateHostObject();
-        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.ButtonsBarConfig?.OnLoadFlow || null)); 
+        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
     }
 
-    private getDefaultHostObject(): IButtonsBar {
-        return { ButtonsBarConfig: new IButtonsBarConfig(), Buttons: this.getDefaultButtons(2) };
+    private getDefaultHostObject(): IBanner {
+        return { BannerConfig: new IBannerConfig(), Banners: this.getDefaultButtons(2) };
     }
 
     private updateHostObject() {
@@ -145,11 +144,11 @@ export class BlockEditorComponent implements OnInit {
             }
         }
     }
-    private getDefaultButtons(numOfCards: number = 0): Array<ButtonEditor> {
-        let buttons: Array<ButtonEditor> = [];
+    private getDefaultButtons(numOfCards: number = 0): Array<BannerEditor> {
+        let buttons: Array<BannerEditor> = [];
        
         for(var i=0; i < numOfCards; i++){
-            let btn = new ButtonEditor();
+            let btn = new BannerEditor();
             btn.id = i;
             
             
@@ -169,11 +168,11 @@ export class BlockEditorComponent implements OnInit {
     }
 
     addNewButtonClick() {
-        let btn = new ButtonEditor();
-        btn.id = (this.configuration?.Buttons.length);
+        let btn = new BannerEditor();
+        btn.id = (this.configuration?.Banners.length);
         btn.FirstTitle.Label = this.getOrdinal(btn.id+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
         
-        this.configuration?.Buttons.push(btn);
+        this.configuration?.Banners.push(btn);
         this.updateHostObject();  
     }
 
@@ -182,16 +181,16 @@ export class BlockEditorComponent implements OnInit {
     }
 
     onButtonRemoveClick(event){
-       this.configuration?.Buttons.splice(event.id, 1);
-       this.configuration?.Buttons.forEach(function(btn, index, arr) {btn.id = index; });
+       this.configuration?.Banners.splice(event.id, 1);
+       this.configuration?.Banners.forEach(function(btn, index, arr) {btn.id = index; });
        this.updateHostObject();
     }
 
     drop(event: CdkDragDrop<string[]>) {
         if (event.previousContainer === event.container) {
-         moveItemInArray(this.configuration.Buttons, event.previousIndex, event.currentIndex);
-         for(let index = 0 ; index < this.configuration.Buttons.length; index++){
-            this.configuration.Buttons[index].id = index;
+         moveItemInArray(this.configuration.Banners, event.previousIndex, event.currentIndex);
+         for(let index = 0 ; index < this.configuration.Banners.length; index++){
+            this.configuration.Banners[index].id = index;
          }
           this.updateHostObject();
         } 
@@ -207,7 +206,7 @@ export class BlockEditorComponent implements OnInit {
 
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
-        this.configuration.ButtonsBarConfig.OnLoadFlow = base64Flow;
-        this.updateHostObjectField(`ButtonsBarConfig.OnLoadFlow`, base64Flow);
+        this.configuration.BannerConfig.OnLoadFlow = base64Flow;
+        this.updateHostObjectField(`BannerConfig.OnLoadFlow`, base64Flow);
     }
 }

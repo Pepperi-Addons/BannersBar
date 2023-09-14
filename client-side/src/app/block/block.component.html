@@ -1,19 +1,19 @@
-<!-- [ngStyle]="getStyles()"-->
-<div class="banners-container" [ngClass]="['gap-'+ configuration?.ButtonsBarConfig?.Structure?.Gap || 'none']"
-                               [ngStyle]="{'grid-template-columns' : 'repeat('+this.configuration.ButtonsBarConfig.Structure.MaxColumns+', 1fr)'}">
+<ng-container *ngIf="configuration?.BannerConfig">
+<div class="banners-container" [ngClass]="['gap-'+ configuration?.BannerConfig?.Structure?.Gap || 'none']"
+                               [ngStyle]="{'grid-template-columns' : 'repeat('+this.configuration.BannerConfig.Structure.MaxColumns+', 1fr)'}">
     
    
 
-    <banner *ngFor="let banner of configuration?.Buttons || []; let currentButton = index"
+    <banner *ngFor="let banner of configuration?.Banners || []; let currentBanner = index"
             [banner]="banner"
             class="banner-container"
-            [ngClass]="['border-radius-' + configuration.ButtonsBarConfig?.Structure?.BorderRadius,
-                    'padding-' + configuration.ButtonsBarConfig?.Structure?.Padding,
+            [ngClass]="['border-radius-' + configuration.BannerConfig?.Structure?.BorderRadius,
+                    'padding-' + configuration.BannerConfig?.Structure?.Padding,
                     banner.Color, banner.Style]"
             [ngStyle]="{'flex-direction' : (banner.Icon.Position == 'end' ? 'unset' : 'row-reverse'),
                     'justify-content': 'start',
                      'cursor': banner.ClickedArea == 'banner' ? 'pointer' : 'inherit'}"
-            (click)="onBannerClick($event, banner.id)"
-            (bannerClick)="onBannerTextClick($event)">
+            (click)="onBannerClick($event, banner.id)">
     </banner> 
 </div>
+</ng-container>

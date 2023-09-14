@@ -6,6 +6,55 @@ export class RelationsService {
     papiClient: PapiClient
     bundleFileName = '';
 
+    bannerSchema = {
+        "Fields": {
+            "BannerConfig": {
+                "Type": "Object",
+                "Fields": { // Gallery.MaxColumns
+                    "Structure": {
+                        "Type": "Object",
+                        "Fields": {
+                            "MaxColumns": {
+                                "Type": "Integer",
+                                "ConfigurationPerScreenSize": true
+                            },
+                            "Gap": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            },
+                            "BorderRadius": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            }
+                        }
+                    }
+                }
+            },
+            "Banners": {
+                "Type": "Object",
+                "Fields": {
+                    "FirstTitle": {
+                        "Type": "Object",
+                        "Fields": {
+                            "Size": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            }
+                        }
+                    },
+                    "SecondTitle": {
+                        "Type": "Object",
+                        "Fields": {
+                            "Size": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     constructor(private client: Client) {
         this.papiClient = new PapiClient({
             baseURL: client.BaseURL,
@@ -28,7 +77,7 @@ export class RelationsService {
     }
 
     private async upsertBlockRelation(): Promise<any> {
-        const blockRelationName = 'BannersBar';
+        const blockRelationName = 'Banner';
         const blockName = 'Block';
         const blockRelation: Relation = {
             RelationName: 'PageBlock',
@@ -44,7 +93,9 @@ export class RelationsService {
             ElementName: `${blockName.toLocaleLowerCase()}-element-${this.client.AddonUUID}`,
             EditorComponentName: `${blockName}EditorComponent`, // This is should be the block editor component name (from the client-side)
             EditorModuleName: `${blockName}EditorModule`, // This is should be the block editor module name (from the client-side)}
-            EditorElementName: `${blockName.toLocaleLowerCase()}-editor-element-${this.client.AddonUUID}`
+            EditorElementName: `${blockName.toLocaleLowerCase()}-editor-element-${this.client.AddonUUID}`,
+            Schema: this.bannerSchema,
+            BlockLoadEndpoint: "/addon-cpi/on_block_load"
     }
     return await this.upsertRelation(blockRelation);
 }

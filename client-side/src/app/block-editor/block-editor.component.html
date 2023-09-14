@@ -3,44 +3,44 @@
         <div>
             <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.LAYOUT' | translate}}</label>
             <pep-slider 
-                    pepResetConfigurationField="configuration?.ButtonsBarConfig?.Structure?.MaxColumns" 
-                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns === configurationSource?.ButtonsBarConfig?.Structure?.MaxColumns"  
+                    pepResetConfigurationField="configuration?.BannerConfig?.Structure?.MaxColumns" 
+                    [hideReset]="configuration?.BannerConfig?.Structure?.MaxColumns === configurationSource?.BannerConfig?.Structure?.MaxColumns"  
                     [resetHostEvents]="hostEvents"
                     [label]="'EDITOR.GENERAL.MAX_COLUMNS' | translate" 
-                    [hint]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns?.toString()" 
+                    [hint]="configuration?.BannerConfig?.Structure?.MaxColumns?.toString()" 
                     [minValue]="1" 
                     [maxValue]="12"
                     [disabled]="false" 
-                    [value]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns"
+                    [value]="configuration?.BannerConfig?.Structure?.MaxColumns"
                     [background]="'RGBA(0,0,0,50%)'"
                     (inputChange)="onFieldChange('MaxColumns',$event)">
             </pep-slider>
         </div>
         <pep-group-buttons-settings 
-                    pepResetConfigurationField="configuration?.ButtonsBarConfig?.Structure?.Gap" 
-                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Gap === configurationSource?.ButtonsBarConfig?.Structure?.Gap" 
+                    pepResetConfigurationField="configuration?.BannerConfig?.Structure?.Gap" 
+                    [hideReset]="configuration?.BannerConfig?.Structure?.Gap === configurationSource?.BannerConfig?.Structure?.Gap" 
                     [resetHostEvents]="hostEvents" 
                     [groupType]="'sizes'" 
                     [subHeader]="'EDITOR.GENERAL.GAP' | translate"
-                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" 
+                    [btnKey]="configuration?.BannerConfig?.Structure?.Gap" 
                     [useNone]="true" 
                     [excludeKeys]="['lg','xl','2xl']"
                     (btnkeyChange)="onFieldChange('Gap',$event)">
         </pep-group-buttons-settings>
     
         <pep-group-buttons-settings [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.PADDING' | translate"
-                [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Padding" [useNone]="false" [excludeKeys]="['xs','2xl']"
+                [btnKey]="configuration?.BannerConfig?.Structure?.Padding" [useNone]="false" [excludeKeys]="['xs','2xl']"
                 (btnkeyChange)="onFieldChange('Padding',$event)">
         </pep-group-buttons-settings>
         <!-- <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.BORDER_RADIUS' | translate}}</label> -->
         <pep-group-buttons-settings 
-                pepResetConfigurationField="configuration?.ButtonsBarConfig?.Structure?.BorderRadius" 
-                [hideReset]="configuration?.ButtonsBarConfig?.Structure?.BorderRadius === configurationSource?.ButtonsBarConfig?.Structure?.BorderRadius" 
+                pepResetConfigurationField="configuration?.BannerConfig?.Structure?.BorderRadius" 
+                [hideReset]="configuration?.BannerConfig?.Structure?.BorderRadius === configurationSource?.BannerConfig?.Structure?.BorderRadius" 
                 [resetHostEvents]="hostEvents"
                 [groupType]="'sizes'" 
                 [header]="'EDITOR.GENERAL.BORDER_RADIUS' | translate" 
                 [subHeader]="'EDITOR.GENERAL.CHOOSE_BORDER_RADIUS' | translate"
-                [btnKey]="configuration?.ButtonsBarConfig?.Structure?.BorderRadius" 
+                [btnKey]="configuration?.BannerConfig?.Structure?.BorderRadius" 
                 [useNone]="true" [excludeKeys]="['lg','xs','2xl']"
                 (btnkeyChange)="onFieldChange('BorderRadius',$event)">
         </pep-group-buttons-settings>
@@ -53,13 +53,13 @@
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNERS' | translate}}</label>
-        <div *ngIf="configuration?.Buttons" (cdkDropListDropped)="drop($event)"  cdkDropList>
-            <button-editor *ngFor ="let btn of configuration?.Buttons; let currentButton = index" 
-                [id]="currentButton" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
+        <div *ngIf="configuration?.Banners?.length > 0" (cdkDropListDropped)="drop($event)"  cdkDropList>
+            <banner-editor *ngFor ="let btn of configuration?.Banners; let currentBanner = index" 
+                [id]="currentBanner" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
                 [isDraggable]="true" (editClick)='onButtonEditClick($event);' (removeClick)='onButtonRemoveClick($event);'
-                [configuration]="btn" [configurationSource]="configurationSource?.Buttons[btn.id] || null"
+                [configuration]="btn" [configurationSource]="configurationSource?.Banners[btn.id] || null"
                 cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
-            </button-editor>
+            </banner-editor>
         </div>
 
         <pep-button class="add-content-button" value="{{'EDITOR.CONTENT.ADD_BANNER' | translate}}" styleType="regular" iconName="number_plus" iconPosition="end"
