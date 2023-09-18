@@ -9,7 +9,7 @@ import { CLIENT_ACTION_ON_BANNER_CLICK } from 'shared';
     templateUrl: './block.component.html',
     styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit {
+export class BannerComponent implements OnInit {
 
 
     

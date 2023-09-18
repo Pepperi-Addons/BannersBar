@@ -11,7 +11,7 @@ import { FlowService } from 'src/services/flow.service';
     templateUrl: './block-editor.component.html',
     styleUrls: ['./block-editor.component.scss']
 })
-export class BlockEditorComponent implements OnInit {
+export class BannerEditorComponent implements OnInit {
     
     @Input()
     set hostObject(value: any) {
