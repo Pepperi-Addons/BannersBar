@@ -180,6 +180,15 @@ export class BlockEditorComponent implements OnInit {
         this.selectedButton = this.selectedButton === event.id ? -1 :  parseInt(event.id);
     }
 
+    onButtonDuplicateClick(event){
+        let btn = new BannerEditor();
+        btn = JSON.parse(JSON.stringify(this.configuration.Banners[event.id]));
+        //btn = {...btn,...this.configuration.Banners[event.id]  };
+        btn.id = (this.configuration?.Banners.length);
+        this.configuration?.Banners.push(btn);
+        this._configuration = this.configuration
+        this.updateHostObject();  
+    }
     onButtonRemoveClick(event){
        this.configuration?.Banners.splice(event.id, 1);
        this.configuration?.Banners.forEach(function(btn, index, arr) {btn.id = index; });

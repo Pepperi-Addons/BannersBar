@@ -72,6 +72,8 @@
                      "END": "End"
                  }
              },
+             "DUPLICATE": "Duplicate",
+             "DELETE": "Delete",
              "BADGE": "Badge",
              "LINK_BADGE": "Badge label",
              "CLICK_EVENT": "Click event",

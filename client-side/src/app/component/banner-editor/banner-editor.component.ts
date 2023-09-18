@@ -42,6 +42,7 @@ export class BannerEditorComponent implements OnInit {
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
     @Output() removeClick: EventEmitter<any> = new EventEmitter();
     @Output() editClick: EventEmitter<any> = new EventEmitter();
+    @Output() duplicateClick: EventEmitter<any> = new EventEmitter();
     
     bannerStyle: Array<PepButton> = [];
     clickedAreas: Array<PepButton> = [];
@@ -110,6 +111,10 @@ export class BannerEditorComponent implements OnInit {
 
     onRemoveClick() {
         this.removeClick.emit({id: this.id});
+    }
+
+    onDuplicateClick(){
+        this.duplicateClick.emit({id: this.id});
     }
 
     onEditClick() {

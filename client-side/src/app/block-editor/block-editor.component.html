@@ -56,7 +56,7 @@
         <div *ngIf="configuration?.Banners?.length > 0" (cdkDropListDropped)="drop($event)"  cdkDropList>
             <banner-editor *ngFor ="let btn of configuration?.Banners; let currentBanner = index" 
                 [id]="currentBanner" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
-                [isDraggable]="true" (editClick)='onButtonEditClick($event);' (removeClick)='onButtonRemoveClick($event);'
+                [isDraggable]="true" (editClick)='onButtonEditClick($event);' (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
                 [configuration]="btn" [configurationSource]="configurationSource?.Banners[btn.id] || null"
                 cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
             </banner-editor>
