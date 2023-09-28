@@ -12,16 +12,18 @@ import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
     templateUrl: './block-editor.component.html',
     styleUrls: ['./block-editor.component.scss']
 })
-export class BannerEditorComponent implements OnInit {
+export class BlockEditorComponent implements OnInit {
     
     @Input()
     set hostObject(value: IEditorHostObject) {
-        debugger;
+
         if (value && value.configuration && Object.keys(value.configuration).length) {
                 this._configuration = value.configuration;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
                     this.configurationSource = value.configurationSource;
                 }
+
+                this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
         } else {
             // TODO - NEED TO ADD DEFAULT CARD
             if(this.blockLoaded){
@@ -32,9 +34,6 @@ export class BannerEditorComponent implements OnInit {
         this.initPageConfiguration(value?.pageConfiguration);
         this._page = value?.page;
         this.flowService.recalculateEditorData(this._page, this._pageConfiguration);
-
-        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
-        debugger;
     }
 
     private _page: Page;
@@ -65,7 +64,7 @@ export class BannerEditorComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        debugger;
+
         this.bannerBarService.pageParameterOptionsSubject$.subscribe((options) => {
             //this.pageParameterOptions = options;
         });

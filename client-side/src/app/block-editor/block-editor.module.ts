@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
-import { BannerEditorComponent } from './index';
+import { BlockEditorComponent } from './index';
 import { BannerEditorModule } from '../component/banner-editor/banner-editor.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -18,7 +18,7 @@ import { PepFieldTitleModule } from '@pepperi-addons/ngx-lib/field-title';
 import { config } from '../app.config';
 
 @NgModule({
-    declarations: [BannerEditorComponent],
+    declarations: [BlockEditorComponent],
     imports: [
         CommonModule,
         MatTabsModule,
@@ -42,7 +42,7 @@ import { config } from '../app.config';
             }, isolate: false
         }),
     ],
-    exports: [BannerEditorComponent],
+    exports: [BlockEditorComponent],
     providers: [
         TranslateStore,
         FlowService

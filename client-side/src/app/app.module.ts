@@ -8,8 +8,8 @@ import { PepAddonService } from '@pepperi-addons/ngx-lib';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes';
 
-import { BannerModule, BannerComponent } from './block';
-import { BannerEditorModule, BannerEditorComponent } from './block-editor';
+import { BlockModule, BlockComponent } from './block';
+import { BlockEditorModule, BlockEditorComponent } from './block-editor';
 
 import { config } from './app.config';
 
@@ -21,8 +21,8 @@ import { config } from './app.config';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        BannerModule,
-        BannerEditorModule,
+        BlockModule,
+        BlockEditorModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -50,8 +50,8 @@ export class AppModule implements DoBootstrap {
     ngDoBootstrap() {
         //this.pepAddonService.defineCustomElement(`settings-element-${config.AddonUUID}`, SettingsComponent, this.injector);
 
-        this.pepAddonService.defineCustomElement(`block-element-${config.AddonUUID}`, BannerComponent, this.injector);
-        this.pepAddonService.defineCustomElement(`block-editor-element-${config.AddonUUID}`, BannerEditorComponent, this.injector);
+        this.pepAddonService.defineCustomElement(`block-element-${config.AddonUUID}`, BlockComponent, this.injector);
+        this.pepAddonService.defineCustomElement(`block-editor-element-${config.AddonUUID}`, BlockEditorComponent, this.injector);
     }
 }
 

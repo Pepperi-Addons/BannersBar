@@ -78,7 +78,7 @@ export class RelationsService {
 
     private async upsertBlockRelation(): Promise<any> {
         const blockRelationName = 'Banner';
-        const blockName = 'Banner';
+        const blockName = 'Block';
         const blockRelation: Relation = {
             RelationName: 'PageBlock',
             Name: blockRelationName,
