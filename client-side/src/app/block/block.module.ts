@@ -6,7 +6,7 @@ import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } fr
 import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
 import { BannerModule } from '../component/banner/banner.module'
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
-import { BlockComponent } from './index';
+import { BannerComponent } from './index';
 import { config } from '../app.config';
 import { PepIconModule, PepIconRegistry, pepIconArrowDown, pepIconBarndPepperi } from '@pepperi-addons/ngx-lib/icon';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,12 +18,12 @@ const pepIcons = [
 export const routes: Routes = [
     {
         path: '',
-        component: BlockComponent
+        component: BannerComponent
     }
 ];
 
 @NgModule({
-    declarations: [BlockComponent],
+    declarations: [BannerComponent],
     imports: [
         CommonModule,
         PepButtonModule,
@@ -40,13 +40,13 @@ export const routes: Routes = [
         }),
         RouterModule.forChild(routes)
     ],
-    exports: [BlockComponent],
+    exports: [BannerComponent],
     providers: [
         TranslateStore,
         // Add here all used services.
     ]
 })
-export class BlockModule {
+export class BannerModule {
     constructor(
         translate: TranslateService,
         private pepAddonService: PepAddonService,
