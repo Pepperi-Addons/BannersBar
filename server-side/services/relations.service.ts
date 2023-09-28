@@ -95,7 +95,8 @@ export class RelationsService {
             EditorModuleName: `${blockName}EditorModule`, // This is should be the block editor module name (from the client-side)}
             EditorElementName: `${blockName.toLocaleLowerCase()}-editor-element-${this.client.AddonUUID}`,
             Schema: this.bannerSchema,
-            BlockLoadEndpoint: "/addon-cpi/on_block_load"
+            BlockLoadEndpoint: "/addon-cpi/on_block_load",
+            BlockButtonClickEndpoint: "/addon-cpi/run_button_click_event"
     }
     return await this.upsertRelation(blockRelation);
 }

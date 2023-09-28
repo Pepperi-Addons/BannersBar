@@ -22,10 +22,9 @@ export class BlockEditorComponent implements OnInit {
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
                     this.configurationSource = value.configurationSource;
                 }
-
+                //prepare the flow host hobject
                 this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
         } else {
-            // TODO - NEED TO ADD DEFAULT CARD
             if(this.blockLoaded){
                 this.loadDefaultConfiguration();
             }
