@@ -8,7 +8,7 @@
         <span class="body-sm color-link bold ellipsis" title="{{configuration?.FirstTitle?.Label || ''}}">{{configuration?.FirstTitle?.Label || 'TITLE'}}</span>
     </div>
     <div class="actions" *ngIf="showActions">
-        <pep-button *ngIf="true" sizeType="xs" iconName="system_copy" title="{{'EDITOR.CONTENT.DUPLICATE' | translate}}" (buttonClick)="onDuplicateClick();"></pep-button>
+        <pep-button sizeType="xs" iconName="system_copy" title="{{'EDITOR.CONTENT.DUPLICATE' | translate}}" (buttonClick)="onDuplicateClick();"></pep-button>
         <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();" title="{{'EDITOR.CONTENT.DELETE' | translate}}"></pep-button>
         <!-- <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button> -->
     </div>

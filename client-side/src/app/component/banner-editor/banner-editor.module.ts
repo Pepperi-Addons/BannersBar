@@ -20,7 +20,7 @@ import { PepFieldTitleModule } from '@pepperi-addons/ngx-lib/field-title';
 import { PepSelectModule } from '@pepperi-addons/ngx-lib/select';
 import { PepTextareaModule } from '@pepperi-addons/ngx-lib/textarea';
 import { config } from '../../app.config';
-import { PepIconRegistry, pepIconSystemBin, pepIconSystemMove, pepIconArrowBack, pepIconArrowBackRight, pepIconArrowDown, pepIconArrowDownAlt, pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt, pepIconArrowTwoWaysHorL} from '@pepperi-addons/ngx-lib/icon';
+import { PepIconRegistry, pepIconSystemBin, pepIconSystemMove, pepIconArrowBack, pepIconArrowBackRight, pepIconArrowDown, pepIconArrowDownAlt, pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt} from '@pepperi-addons/ngx-lib/icon';
 
 const pepIcons = [
     pepIconSystemBin,

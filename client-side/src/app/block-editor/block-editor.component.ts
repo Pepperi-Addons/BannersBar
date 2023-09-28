@@ -2,9 +2,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { BannerBarService } from 'src/services/banner-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
-import { IBanner, BannerEditor, IBannerConfig } from '../banners-bar.model';
+import { IBanner, BannerEditor, IBannerConfig, IEditorHostObject } from '../banners-bar.model';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
+import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
 
 @Component({
     selector: 'page-block-editor',
@@ -14,7 +15,8 @@ import { FlowService } from 'src/services/flow.service';
 export class BlockEditorComponent implements OnInit {
     
     @Input()
-    set hostObject(value: any) {
+    set hostObject(value: IEditorHostObject) {
+        debugger;
         if (value && value.configuration && Object.keys(value.configuration).length) {
                 this._configuration = value.configuration;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
@@ -27,22 +29,33 @@ export class BlockEditorComponent implements OnInit {
             }
         }
         
-        //this._pageParameters = value?.pageParameters || {};
-       //this._pageConfiguration = value?.pageConfiguration || this.defaultPageConfiguration;
+        this.initPageConfiguration(value?.pageConfiguration);
+        this._page = value?.page;
+        this.flowService.recalculateEditorData(this._page, this._pageConfiguration);
+
+        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
+        debugger;
     }
+
+    private _page: Page;
+    get page(): Page {
+        return this._page;
+    }
+    
     private _configuration: IBanner;
     get configuration(): IBanner {
         return this._configuration;
     }
 
+    private defaultPageConfiguration: PageConfiguration = { "Parameters": []};
+    private _pageConfiguration: PageConfiguration;
     private blockLoaded = false;
-    public onloadFlowName = undefined;
     public configurationSource: IBanner;
     //public widthTypes: Array<PepButton> = [];
     //public verticalAlign : Array<PepButton> = [];
     public selectedButton: number = -1;
     public flowHostObject;
-
+    
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private translate: TranslateService,
@@ -52,7 +65,7 @@ export class BlockEditorComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-
+        debugger;
         this.bannerBarService.pageParameterOptionsSubject$.subscribe((options) => {
             //this.pageParameterOptions = options;
         });
@@ -62,26 +75,7 @@ export class BlockEditorComponent implements OnInit {
         if (!this.configuration) {
             this.loadDefaultConfiguration();
         }
-
-        // this.widthTypes = [
-        //     { key: 'dynamic', value: this.translate.instant('EDITOR.GENERAL.WIDTH_TYPES.DYNAMIC'), callback: (event: any) => this.onFieldChange('WidthType',event) },
-        //     { key: 'set', value: this.translate.instant('EDITOR.GENERAL.WIDTH_TYPES.SET'), callback: (event: any) => this.onFieldChange('WidthType',event) },
-        //     { key: 'stretch', value: this.translate.instant('EDITOR.GENERAL.WIDTH_TYPES.STRETCH'), callback: (event: any) => this.onFieldChange('WidthType',event) }
-        // ]
-
-        // this.verticalAlign = [
-        //     { key: 'start', value: this.translate.instant('EDITOR.GENERAL.VERTICAL_ALIGN.TOP'), callback: (event: any) => this.onFieldChange('Alignment.Vertical',event) },
-        //     { key: 'middle', value: this.translate.instant('EDITOR.GENERAL.VERTICAL_ALIGN.MIDDLE'), callback: (event: any) => this.onFieldChange('Alignment.Vertical',event) },
-        //     { key: 'end', value: this.translate.instant('EDITOR.GENERAL.VERTICAL_ALIGN.BOTTOM'), callback: (event: any) => this.onFieldChange('Alignment.Vertical',event) }
-        // ]
-
-        if(this.configuration?.BannerConfig?.OnLoadFlow){
-            const flow = JSON.parse(atob(this.configuration.BannerConfig.OnLoadFlow));
-            this.onloadFlowName = await this.bannerBarService.getFlowName(flow.FlowKey);
-        }
-
-        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
-
+        
         this.blockLoaded = true;
     }
 
@@ -107,6 +101,10 @@ export class BlockEditorComponent implements OnInit {
         this._configuration = this.getDefaultHostObject();
         this.updateHostObject();
         this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
+    }
+
+    private initPageConfiguration(value: PageConfiguration = null) {
+        this._pageConfiguration = value || JSON.parse(JSON.stringify(this.defaultPageConfiguration));
     }
 
     private getDefaultHostObject(): IBanner {

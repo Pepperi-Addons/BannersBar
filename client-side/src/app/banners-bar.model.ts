@@ -1,5 +1,6 @@
 import { PepHorizontalAlignment, PepSizeType, PepStyleType} from "@pepperi-addons/ngx-lib";
-import { PepIconType } from "@pepperi-addons/ngx-lib/icon";
+import { Page } from "@pepperi-addons/papi-sdk";
+
 export type textColor = 'system-primary' | 'dimmed' | 'invert' | 'strong';
 export type verticalAlignment = 'start' | 'middle' | 'end';
 export type textPositionStyling = 'overlaid' | 'separated';
@@ -64,4 +65,12 @@ export class BannerEditor {
     ClickedArea: ClickedArea = 'banner';
     UseFlow: boolean = false;
     Flow: any;
+}
+
+export interface IEditorHostObject {
+    state: any;
+    configuration: IBanner;
+    configurationSource: IBanner;
+    pageConfiguration: any;
+    page: Page
 }
