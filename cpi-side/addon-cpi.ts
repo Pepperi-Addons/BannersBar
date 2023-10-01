@@ -23,17 +23,15 @@ router.post('/on_block_load', async (req, res) => {
         configuration = result?.configuration || configuration;
     }
 
-
     res.json({Configuration: configuration});
 });
 
 router.post('/run_button_click_event', async (req, res) => {
-    debugger;
     let configuration = req?.body?.Configuration;
     const state = req.body.State;
     const btnID = req.body.ButtonKey;
     // check if flow configured to on load --> run flow (instaed of onload event)
-    if (configuration?.Buttons[btnID]?.Flow){
+    if (configuration?.Banners[btnID]?.Flow){
         const cpiService = new BannerCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(configuration.Banners[btnID].Flow || [], state, req.context, configuration);
