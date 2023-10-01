@@ -26,7 +26,7 @@ export class BannerEditorComponent implements OnInit {
     
     //configurationSource: BannerEditor;
     @Input() id: number;
-    @Input() selectedButton: number;
+    @Input() selectedBanner: number;
 
     private _pageParameters: any = {};
     @Input()
@@ -43,7 +43,8 @@ export class BannerEditorComponent implements OnInit {
     @Output() removeClick: EventEmitter<any> = new EventEmitter();
     @Output() editClick: EventEmitter<any> = new EventEmitter();
     @Output() duplicateClick: EventEmitter<any> = new EventEmitter();
-    
+    @Output() flowChange: EventEmitter<any> = new EventEmitter();
+
     bannerStyle: Array<PepButton> = [];
     clickedAreas: Array<PepButton> = [];
     bannerColor: Array<PepButton> = [];
@@ -135,14 +136,6 @@ export class BannerEditorComponent implements OnInit {
         }
     }
 
-    private updateHostObject(updatePageConfiguration = false) {
-        this.hostEvents.emit({
-            action: 'set-configuration',
-            configuration: this.configuration,
-            updatePageConfiguration: updatePageConfiguration
-        });
-    }
-
     private updateHostObjectField(fieldKey: string, value: any) {
         this.hostEvents.emit({
             action: 'set-configuration-field',
@@ -151,75 +144,11 @@ export class BannerEditorComponent implements OnInit {
         });
     }
 
-    onSlideshowFieldChange(key, event){/*
-        if(event && event.source && event.source.key){
-            this.configuration.GalleryConfig[key] = event.source.key;
-        }
-        else{
-            this.configuration.GalleryConfig[key] = event;
-        }
-
-        this.updateHostObject();*/
-    }
-
-    onHostEvents(event: any) {/*
-        if(event?.url) {
-            this.configuration.Cards[this.id].AssetURL = "'"+ encodeURI(event.url) +"'";
-            this.configuration.Cards[this.id].AssetKey = event.key;
-
-            this.updateHostObject();
-        }     */
-    }
-
-    // openFlowPickerDialog() {
-    //     const flow = this.configuration?.Flow  ?  JSON.parse(atob(this.configuration.Flow)) : null;
-    //     let hostObj = {};
-    //     if(flow){
-    //         hostObj = { 
-    //             runFlowData: { 
-    //                 FlowKey: flow.FlowKey, 
-    //                 FlowParams: flow.FlowParams 
-    //             },
-    //             fields: {
-    //                 ButtonConfiguration: {
-    //                     Type: 'Object',
-    //                 }
-    //             }
-    //         };
-    //     } else{
-    //         hostObj = { 
-    //             fields: {
-    //                 ButtonConfiguration: {
-    //                         Type: 'Object',
-    //                     }
-    //                 },
-    //             }
-    //     }
-
-    //     this.dialogRef = this.addonBlockLoaderService.loadAddonBlockInDialog({
-    //         container: this.viewContainerRef,
-    //         name: 'FlowPicker',
-    //         size: 'large',
-    //         hostObject: hostObj,
-    //         hostEventsCallback: async (event) => {
-    //             if (event.action === 'on-done') {
-    //                     const base64Flow = btoa(JSON.stringify(event.data));
-    //                     this.configuration['Flow'] = base64Flow;
-    //                     this.updateHostObjectField(`Banners[${this.id}]['Flow']`, base64Flow);
-    //                     this.dialogRef.close();
-    //                     this.btnFlowName = await this.bannerBarService.getFlowName(event.data.FlowKey) || undefined;
-    //             } else if (event.action === 'on-cancel') {
-    //                     this.dialogRef.close();
-    //             }
-    //         }
-    //     })
-
-    // }
-
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
         this.configuration['Flow'] = base64Flow;
         this.updateHostObjectField(`Banners[${this.id}]['Flow']`, base64Flow);
+        this.flowChange.emit();
     }
 
     onIconChange(event){
