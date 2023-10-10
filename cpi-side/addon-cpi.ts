@@ -51,7 +51,6 @@ router.post('/run_button_click_event', async (req, res) => {
 });
 
 router.post('/on_block_state_change', async (req, res) => {
-    debugger;
     const state = req.body.State || {};
     const changes = req.body.Changes || {};
     const configuration = req.body.Configuration;

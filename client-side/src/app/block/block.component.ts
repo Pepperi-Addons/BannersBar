@@ -53,7 +53,6 @@ export class BlockComponent implements OnInit {
         // }
     }
     private registerStateChange(data: {state: any, configuration: any}) {
-        debugger;
         this.configuration = data.configuration;
     }
 
