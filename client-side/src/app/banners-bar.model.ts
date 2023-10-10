@@ -60,7 +60,7 @@ export class BannerEditor {
     FirstTitle: Title = new Title();
     SecondTitle: Title = new Title();
     Style: PepStyleType = 'weak';
-    Color: string = 'system-primary';
+    Color: textColor = 'system-primary';
     Icon: Icon = new Icon();
     ClickedArea: ClickedArea = 'banner';
     UseFlow: boolean = false;

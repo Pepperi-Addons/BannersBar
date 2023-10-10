@@ -9,8 +9,6 @@ import { IBanner, IHostObject } from '../banners-bar.model';
 })
 export class BlockComponent implements OnInit {
 
-
-    
     @Input() 
     set hostObject(value: IHostObject){
         if(value?.configuration && Object.keys(value.configuration).length){
@@ -28,19 +26,20 @@ export class BlockComponent implements OnInit {
         this._configuration = conf;    
     }
 
-
     public columnTemplate: string;
     public imageMaxHeight: string;
 
-    constructor(private translate: TranslateService) {
-    
-    }
+    constructor(private translate: TranslateService) {}
 
     @HostListener('window:resize')
     public onWindowResize() {
     }
     
     ngOnInit(): void {
+        this.hostEvents.emit({
+            action: 'register-state-change',
+            callback: this.registerStateChange.bind(this)
+        });
     }
 
     ngAfterViewInit(){
@@ -52,6 +51,10 @@ export class BlockComponent implements OnInit {
         // if(this.elementView.nativeElement){
         //     this.imageMaxHeight = this.elementView.nativeElement.clientHeight || '56';
         // }
+    }
+    private registerStateChange(data: {state: any, configuration: any}) {
+        debugger;
+        this.configuration = data.configuration;
     }
 
     onBannerClick(event, bannerID){

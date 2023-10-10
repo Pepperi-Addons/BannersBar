@@ -13,39 +13,53 @@ router.get('/test', (req, res) => {
 })
 
 router.post('/on_block_load', async (req, res) => {
-    let configuration = req?.body?.Configuration;
+    const configuration = req?.body?.Configuration;
+    let configurationRes = configuration;
     const state = req.body.State;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.BannerConfig?.OnLoadFlow){
         const cpiService = new BannerCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(configuration.BannerConfig.OnLoadFlow || [], state, req.context, configuration);
-        configuration = result?.configuration || configuration;
+        configurationRes = result?.configuration || configuration;
     }
 
-    res.json({Configuration: configuration});
+    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    res.json({
+        State: mergeState,
+        Configuration: configurationRes,
+    });
 });
 
 router.post('/run_button_click_event', async (req, res) => {
-    let configuration = req?.body?.Configuration;
     const state = req.body.State;
     const btnID = req.body.ButtonKey;
+    const configuration = state?.configuration || req?.body?.Configuration;
+    let configurationRes = configuration;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.Banners[btnID]?.Flow){
         const cpiService = new BannerCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(configuration.Banners[btnID].Flow || [], state, req.context, configuration);
-        configuration = result?.configuration || configuration;
+        configurationRes = result?.configuration || configuration;
     }
-    res.json({Configuration: configuration});
+    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    res.json({
+        State: mergeState,
+        Configuration: configurationRes,
+    });
 });
 
+router.post('/on_block_state_change', async (req, res) => {
+    debugger;
+    const state = req.body.State || {};
+    const changes = req.body.Changes || {};
+    const configuration = req.body.Configuration;
 
-/**********************************  client events starts /**********************************/
-// pepperi.events.intercept(CLIENT_ACTION_ON_BANNER_CLICK as any, {}, async (data): Promise<any> => {
-//     const cpiService = new BannerCpiService();
-//     const res: any = await cpiService.getOptionsFromFlow(data.flow, data.parameters, data, data.parameters.configuration);
-//     return res;
-// });
-/***********************************  client events ends /***********************************/
+    const mergeState = {...state, ...changes};
 
+    res.json({
+        State: mergeState,
+        Configuration: changes,
+    });
+});
