@@ -1,5 +1,6 @@
 import '@pepperi-addons/cpi-node'
 import BannerCpiService from './banner-cpi.service';
+import * as _ from 'lodash'
 
 export async function load(configuration: any): Promise<void>{
     return Promise.resolve();
@@ -24,9 +25,13 @@ router.post('/on_block_load', async (req, res) => {
         configurationRes = result?.configuration || configuration;
     }
 
-    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
+    difference.forEach(diff => {
+        state[diff[0]] = diff[1];
+    });
+
     res.json({
-        State: mergeState,
+        State: state,
         Configuration: configurationRes,
     });
 });
@@ -34,7 +39,16 @@ router.post('/on_block_load', async (req, res) => {
 router.post('/run_button_click_event', async (req, res) => {
     const state = req.body.State;
     const btnID = req.body.ButtonKey;
-    const configuration = state?.configuration || req?.body?.Configuration;
+    const configuration = req?.body?.Configuration;
+
+    for (const prop in configuration) {
+        // skip loop if the property dont exits on state object
+        if (state.hasOwnProperty(prop)) {
+            //update configuration with the object from state
+            configuration[prop] = state[prop];
+        }
+    }
+
     let configurationRes = configuration;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.Banners[btnID]?.Flow){
@@ -43,9 +57,13 @@ router.post('/run_button_click_event', async (req, res) => {
         const result: any = await cpiService.getOptionsFromFlow(configuration.Banners[btnID].Flow || [], state, req.context, configuration);
         configurationRes = result?.configuration || configuration;
     }
-    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
+    difference.forEach(diff => {
+        state[diff[0]] = diff[1];
+    });
+
     res.json({
-        State: mergeState,
+        State: state,
         Configuration: configurationRes,
     });
 });
@@ -53,7 +71,7 @@ router.post('/run_button_click_event', async (req, res) => {
 router.post('/on_block_state_change', async (req, res) => {
     const state = req.body.State || {};
     const changes = req.body.Changes || {};
-    const configuration = req.body.Configuration;
+    //const configuration = req.body.Configuration;
 
     const mergeState = {...state, ...changes};
 
