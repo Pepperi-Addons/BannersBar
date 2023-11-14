@@ -1,5 +1,6 @@
 import { PepHorizontalAlignment, PepSizeType, PepStyleType} from "@pepperi-addons/ngx-lib";
 import { Page } from "@pepperi-addons/papi-sdk";
+import { v4 as uuid } from 'uuid';
 
 export type textColor = 'system-primary' | 'dimmed' | 'invert' | 'strong';
 export type verticalAlignment = 'start' | 'middle' | 'end';
@@ -65,6 +66,7 @@ export class BannerEditor {
     ClickedArea: ClickedArea = 'banner';
     UseFlow: boolean = false;
     Flow: any;
+    ButtonKey: string = uuid();
 }
 
 export interface IEditorHostObject {

@@ -108,5 +108,7 @@
          <pep-select [disabled]="!configuration?.UseFlow" [label]="'EDITOR.CONTENT.CLICKED_AREA.CLICK_TRIGER' | translate" [value]="configuration?.ClickedArea || 'banner'" 
                      [options]="clickedAreas" (valueChange)="onFieldChange('ClickedArea',$event)" [emptyOption]="false">
         </pep-select>
+        <pep-textbox [label]="'EDITOR.CONTENT.ACTION_KEY' | translate" type="string" [disabled]="true" 
+        [value]="configuration?.ButtonKey"></pep-textbox>
     </div>
 </div>

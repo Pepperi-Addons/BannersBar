@@ -47,11 +47,12 @@ export class BlockComponent implements OnInit {
     }
 
     onBannerClick(event, bannerID){
+        // check if clicked on selected clicket area (from the editor)
         if(event?.srcElement?.classList?.value.indexOf(this.configuration.Banners[bannerID].ClickedArea) > -1 || this.configuration.Banners[bannerID].ClickedArea === 'banner'){
             if(this.configuration.Banners[bannerID].UseFlow && this.configuration.Banners[bannerID].Flow){
                 this.hostEvents.emit({
                     action: 'button-click',
-                    buttonKey: bannerID
+                    buttonKey: this.configuration.Banners[bannerID].ButtonKey
                 })
             }
         } 

@@ -38,7 +38,7 @@ router.post('/on_block_load', async (req, res) => {
 
 router.post('/run_button_click_event', async (req, res) => {
     const state = req.body.State;
-    const btnID = req.body.ButtonKey;
+    const btnKey = req.body.ButtonKey;
     const configuration = req?.body?.Configuration;
 
     for (const prop in configuration) {
@@ -50,11 +50,13 @@ router.post('/run_button_click_event', async (req, res) => {
     }
 
     let configurationRes = configuration;
+    const banner = configuration?.Banners?.filter(b => { return b.ButtonKey === btnKey })[0] || null;
+
     // check if flow configured to on load --> run flow (instaed of onload event)
-    if (configuration?.Banners[btnID]?.Flow){
+    if (banner?.Flow){
         const cpiService = new BannerCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
-        const result: any = await cpiService.getOptionsFromFlow(configuration.Banners[btnID].Flow || [], state, req.context, configuration);
+        const result: any = await cpiService.getOptionsFromFlow(banner.Flow || [], state, req.context, configuration);
         configurationRes = result?.configuration || configuration;
     }
     const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
