@@ -31,27 +31,29 @@ export class RelationsService {
                 }
             },
             "Banners": {
-                "Type": "Object",
-                "Fields": {
-                    "FirstTitle": {
-                        "Type": "Object",
-                        "Fields": {
-                            "Size": {
-                                "Type": "String",
-                                "ConfigurationPerScreenSize": true
+                "Type": "Array",
+                "Items": {
+                    "Fields": {
+                        "FirstTitle": {
+                            "Type": "Object",
+                            "Fields": {
+                                "Size": {
+                                    "Type": "String",
+                                    "ConfigurationPerScreenSize": true
+                                }
                             }
-                        }
-                    },
-                    "SecondTitle": {
-                        "Type": "Object",
-                        "Fields": {
-                            "Size": {
-                                "Type": "String",
-                                "ConfigurationPerScreenSize": true
+                        },
+                        "SecondTitle": {
+                            "Type": "Object",
+                            "Fields": {
+                                "Size": {
+                                    "Type": "String",
+                                    "ConfigurationPerScreenSize": true
+                                }
                             }
                         }
                     }
-                }
+            }
             }
         }
     }

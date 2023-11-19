@@ -37,6 +37,9 @@ export class Icon {
 export interface IHostObject {
     configuration: IBanner;
     parameters: any;
+    configurationSource: IBanner;
+    pageConfiguration: any;
+    page: Page,
 }
 
 export interface IBanner{

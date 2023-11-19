@@ -19,6 +19,7 @@ export class BlockEditorComponent implements OnInit {
 
         if (value && value.configuration && Object.keys(value.configuration).length) {
                 this._configuration = value.configuration;
+                debugger;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
                     this.configurationSource = value.configurationSource;
                 }

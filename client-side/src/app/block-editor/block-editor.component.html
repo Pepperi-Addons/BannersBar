@@ -3,7 +3,7 @@
         <div>
             <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.LAYOUT' | translate}}</label>
             <pep-slider 
-                    pepResetConfigurationField="configuration?.BannerConfig?.Structure?.MaxColumns" 
+                    pepResetConfigurationField="BannerConfig.Structure.MaxColumns" 
                     [hideReset]="configuration?.BannerConfig?.Structure?.MaxColumns === configurationSource?.BannerConfig?.Structure?.MaxColumns"  
                     [resetHostEvents]="hostEvents"
                     [label]="'EDITOR.GENERAL.MAX_COLUMNS' | translate" 
@@ -17,7 +17,7 @@
             </pep-slider>
         </div>
         <pep-group-buttons-settings 
-                    pepResetConfigurationField="configuration?.BannerConfig?.Structure?.Gap" 
+                    pepResetConfigurationField="BannerConfig.Structure.Gap" 
                     [hideReset]="configuration?.BannerConfig?.Structure?.Gap === configurationSource?.BannerConfig?.Structure?.Gap" 
                     [resetHostEvents]="hostEvents" 
                     [groupType]="'sizes'" 
@@ -34,7 +34,7 @@
         </pep-group-buttons-settings>
         <!-- <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.BORDER_RADIUS' | translate}}</label> -->
         <pep-group-buttons-settings 
-                pepResetConfigurationField="configuration?.BannerConfig?.Structure?.BorderRadius" 
+                pepResetConfigurationField="BannerConfig.Structure.BorderRadius" 
                 [hideReset]="configuration?.BannerConfig?.Structure?.BorderRadius === configurationSource?.BannerConfig?.Structure?.BorderRadius" 
                 [resetHostEvents]="hostEvents"
                 [groupType]="'sizes'" 
@@ -57,7 +57,7 @@
             <banner-editor *ngFor ="let btn of configuration?.Banners; let currentBanner = index" 
                 [id]="currentBanner" [selectedBanner]="selectedBanner" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
                 [isDraggable]="true" (editClick)='onButtonEditClick($event);' (flowChange)='onBannerFlowChanged($event);'  (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
-                [configuration]="btn" [configurationSource]="configurationSource?.Banners[btn.id] || null"
+                [configuration]="configuration" [configurationSource]="configurationSource"
                 cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
             </banner-editor>
         </div>
