@@ -1,18 +1,18 @@
 <div #textCont class="text-container"
                  [ngStyle]="{'justify-content' : !banner.Icon.UseIcon ? 'center' : 'unset'}">
-                <span class="first-title" 
+                <label class="first-title ellipsis" 
                       [ngClass]="[(banner.FirstTitle.Style == 'heading' ? 'title-' : 'body-') + banner.FirstTitle.Size,
                                   banner.ClickedArea == 'first-title' ? 'underline-text' : '']">
                      {{banner.FirstTitle.Label || ''}}
-                </span>
-                <span class="second-title" 
+                </label>
+                <label class="second-title ellipsis" 
                       *ngIf="banner?.SecondTitle?.Use" 
                       [ngClass]="[(banner.SecondTitle.Style == 'heading' ? 'title-' : 'body-') + banner.SecondTitle.Size,
                                    banner.ClickedArea == 'second-title' ? 'underline-text' : '']">
                       {{banner.SecondTitle.Label || ''}}
-                </span>
+               </label>
             </div>
             <div class="icon-container" *ngIf="banner.Icon.UseIcon"
                  [ngStyle]="{'margin-right' : banner.Icon.Position == 'start' ? '.75rem' : 'unset'}">
-                 <img [src]="banner.Icon?.Url || ''" [ngStyle]="{'height.px': getTextContHeight() }"/>
+                 <img *ngIf="banner.Icon?.Url" [src]="banner.Icon?.Url || null" [ngStyle]="{'height.px': getTextContHeight() }"/>
             </div>  

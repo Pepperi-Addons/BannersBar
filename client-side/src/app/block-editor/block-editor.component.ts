@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { BannerBarService } from 'src/services/banner-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
-import { IBanner, BannerEditor, IBannerConfig, IEditorHostObject } from '../banners-bar.model';
+import { IBanner, BannerEditor, IBannerConfig } from '../banners-bar.model';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
 import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
@@ -15,11 +15,9 @@ import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
 export class BlockEditorComponent implements OnInit {
     
     @Input()
-    set hostObject(value: IEditorHostObject) {
-
+    set hostObject(value: any) {
         if (value && value.configuration && Object.keys(value.configuration).length) {
                 this._configuration = value.configuration;
-                debugger;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
                     this.configurationSource = value.configurationSource;
                 }
@@ -40,16 +38,17 @@ export class BlockEditorComponent implements OnInit {
     get page(): Page {
         return this._page;
     }
-    
+
+    public configurationSource: IBanner;
     private _configuration: IBanner;
     get configuration(): IBanner {
         return this._configuration;
     }
 
     private defaultPageConfiguration: PageConfiguration = { "Parameters": []};
-    private _pageConfiguration: PageConfiguration;
+    private _pageConfiguration: PageConfiguration = this.defaultPageConfiguration;
     private blockLoaded = false;
-    public configurationSource: IBanner;
+    
     public selectedBanner: number = -1;
     public flowHostObject;
     
@@ -123,15 +122,14 @@ export class BlockEditorComponent implements OnInit {
         if(event && event.action) {
             if (event.action === 'set-configuration') {
                 this._configuration = event.configuration;
-                this.updateHostObject();
-
-                // Update page configuration only if updatePageConfiguration
-                if (event.updatePageConfiguration) { // TODO - CHECK IF NEED
-                    //this.updatePageConfigurationObject();
-                }
+                this.updateHostObject();   
             }
             if(event.action === 'set-configuration-field'){
                 this.updateHostObjectField(event.key, event.value);
+            }
+            // Update page configuration only if updatePageConfiguration
+            if (event.updatePageConfiguration) { // TODO - CHECK IF NEED
+                this.updatePageConfigurationObject();
             }
         }
     }

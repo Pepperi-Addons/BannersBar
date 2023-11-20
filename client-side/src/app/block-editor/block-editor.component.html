@@ -54,8 +54,8 @@
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNERS' | translate}}</label>
         <div *ngIf="configuration?.Banners?.length > 0" (cdkDropListDropped)="drop($event)"  cdkDropList>
-            <banner-editor *ngFor ="let btn of configuration?.Banners; let currentBanner = index" 
-                [id]="currentBanner" [selectedBanner]="selectedBanner" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
+            <banner-editor *ngFor ="let currentBanner of configuration?.Banners;" 
+                [id]="currentBanner?.id" [selectedBanner]="selectedBanner" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
                 [isDraggable]="true" (editClick)='onButtonEditClick($event);' (flowChange)='onBannerFlowChanged($event);'  (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
                 [configuration]="configuration" [configurationSource]="configurationSource"
                 cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">

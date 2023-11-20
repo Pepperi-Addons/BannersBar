@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
-import { BannerEditor }  from '../../banners-bar.model';
+import { BannerEditor, IBanner }  from '../../banners-bar.model';
 import { FlowService } from '../../../services/flow.service';
 
 interface groupButtonArray {
@@ -16,26 +16,10 @@ interface groupButtonArray {
 })
 export class BannerEditorComponent implements OnInit {
 
-    @Input() configuration: BannerEditor;
-    
-    public _configurationSource: BannerEditor;
-    @Input() 
-    set configurationSource(value: any) {
-        this._configurationSource = value;
-    }
-    
-    //configurationSource: BannerEditor;
+    @Input() configuration: IBanner;
+    @Input() configurationSource: IBanner;
     @Input() id: number;
     @Input() selectedBanner: number;
-
-    private _pageParameters: any = {};
-    @Input()
-    set pageParameters(value: any) {
-        this._pageParameters = value;
-    }
-
-    public title: string;
-
     @Input() isDraggable = false;
     @Input() showActions = true;
 
@@ -45,16 +29,16 @@ export class BannerEditorComponent implements OnInit {
     @Output() duplicateClick: EventEmitter<any> = new EventEmitter();
     @Output() flowChange: EventEmitter<any> = new EventEmitter();
 
+    public title: string;
+    public flowHostObject;
     bannerStyle: Array<PepButton> = [];
     clickedAreas: Array<PepButton> = [];
     bannerColor: Array<PepButton> = [];
-   
-
     iconPosition: Array<PepButton> = [];
     textStyle: Array<PepButton> = [];
     secTextStyle: Array<PepButton> = [];
     consumersList: Array<PepButton> = [];
-    public flowHostObject;
+
 
     constructor(
         private translate: TranslateService,
@@ -101,7 +85,7 @@ export class BannerEditorComponent implements OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.Flow || null)); 
+        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.Banners[this.id]?.Flow || null)); 
     }
 
     getOrdinal(n) {
@@ -126,33 +110,43 @@ export class BannerEditorComponent implements OnInit {
         const value = key.indexOf('image') > -1 && key.indexOf('src') > -1 ? event.fileStr :  event && event.source && event.source.key ? event.source.key : event && event.source && event.source.value ? event.source.value :  event;
         if(key.indexOf('.') > -1){
             let keyObj = key.split('.');
-            this.configuration[keyObj[0]][keyObj[1]] = value;
-            this.updateHostObjectField(`Banners[${this.id}][${keyObj[0]}][${keyObj[1]}]`, value);
+            this.configuration.Banners[this.id][keyObj[0]][keyObj[1]] = value;
+            //this.updateHostObjectField(`Banners[${this.id}][${keyObj[0]}][${keyObj[1]}]`, value);
         }
         else{
-            this.configuration[key] = value;
-            this.updateHostObjectField(`Banners[${this.id}][${key}]`, value);
-            
+            this.configuration.Banners[this.id][key] = value;
+            //this.updateHostObjectField(`Banners[${this.id}][${key}]`, value);  
         }
+        
+        this.updateHostObjectField(`Banners[${this.id}].${key}`, value);
+        //this.updateHostObjectField(`Banners[${this.id}][${key}]`, value);  
     }
 
-    private updateHostObjectField(fieldKey: string, value: any) {
+    private updateHostObjectField(fieldKey: string, value: any, updatePageConfiguration = false) {
         this.hostEvents.emit({
             action: 'set-configuration-field',
             key: fieldKey, 
-            value: value
+            value: value,
+            updatePageConfiguration: updatePageConfiguration
+        });
+    }
+
+    private updateHostObject() {
+        this.hostEvents.emit({
+            action: 'set-configuration',
+            configuration: this.configuration
         });
     }
 
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
-        this.configuration['Flow'] = base64Flow;
+        this.configuration.Banners[this.id]['Flow'] = base64Flow;
         this.updateHostObjectField(`Banners[${this.id}]['Flow']`, base64Flow);
         this.flowChange.emit();
     }
 
     onIconChange(event){
-        this.configuration.Icon.Url = event.url;
+        this.configuration.Banners[this.id].Icon.Url = event.url;
         this.onFieldChange('Icon.Url', event?.url );
     }
 

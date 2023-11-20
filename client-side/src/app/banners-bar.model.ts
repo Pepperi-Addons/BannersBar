@@ -35,6 +35,7 @@ export class Icon {
 }
 
 export interface IHostObject {
+    state: any;
     configuration: IBanner;
     parameters: any;
     configurationSource: IBanner;
@@ -70,12 +71,4 @@ export class BannerEditor {
     UseFlow: boolean = false;
     Flow: any;
     ButtonKey: string = uuid();
-}
-
-export interface IEditorHostObject {
-    state: any;
-    configuration: IBanner;
-    configurationSource: IBanner;
-    pageConfiguration: any;
-    page: Page
 }

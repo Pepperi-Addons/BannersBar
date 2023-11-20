@@ -7,6 +7,7 @@
     height: 100%;
     align-items: center; 
     justify-content: space-between;
+    overflow: auto;
 
     .icon-container{
         aspect-ratio : 1/1;
@@ -26,13 +27,16 @@
         display:grid;
         width: -webkit-fill-available;
 
-        span{
+        label{
             /*width: fit-content;*/
 
             &.underline-text{
                 text-decoration: underline;
                 cursor: pointer;
             }
+        }
+        .first-title{
+            white-space: unset !important;
         }
     }
 }

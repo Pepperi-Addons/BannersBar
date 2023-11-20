@@ -18,12 +18,12 @@ export class BlockComponent implements OnInit {
 
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
 
-    private _configuration: IBanner;
+    private _configuration: IBanner; // = this.getDefaultHostObject();
     get configuration(): IBanner {
         return this._configuration;
     }
     set configuration(conf: IBanner){
-        this._configuration = conf;    
+        this._configuration = conf;
     }
 
     public columnTemplate: string;

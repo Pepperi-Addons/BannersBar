@@ -33,6 +33,7 @@ export class RelationsService {
             "Banners": {
                 "Type": "Array",
                 "Items": {
+                    "Type": "Object",
                     "Fields": {
                         "FirstTitle": {
                             "Type": "Object",
@@ -53,7 +54,7 @@ export class RelationsService {
                             }
                         }
                     }
-            }
+                }
             }
         }
     }
