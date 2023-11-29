@@ -6,6 +6,7 @@ import { IBanner, BannerEditor, IBannerConfig } from '../banners-bar.model';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
 import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
+import { v4 as uuid } from 'uuid';
 
 @Component({
     selector: 'page-block-editor',
@@ -170,8 +171,9 @@ export class BlockEditorComponent implements OnInit {
     onButtonDuplicateClick(event){
         let btn = new BannerEditor();
         btn = JSON.parse(JSON.stringify(this.configuration.Banners[event.id]));
-        //btn = {...btn,...this.configuration.Banners[event.id]  };
+
         btn.id = (this.configuration?.Banners.length);
+        btn.ButtonKey = uuid();
         this.configuration?.Banners.push(btn);
         this._configuration = this.configuration
         this.updateHostObject();  
