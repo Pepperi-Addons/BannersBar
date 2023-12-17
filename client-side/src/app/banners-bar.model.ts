@@ -22,10 +22,17 @@ export class BannerText {
 }
 
 export class Title {
-    Use: boolean = false;
-    Label: string = '';
-    Style: titleStyle = 'body';
-    Size: PepSizeType = 'lg';
+    Use: boolean;
+    Label: string;
+    Style: titleStyle;
+    Size: PepSizeType;
+
+    constructor(Use = false, Label = '', Style: titleStyle = 'body', Size: PepSizeType = 'lg'){
+        this.Use = Use;
+        this.Label = Label;
+        this.Style = Style;
+        this.Size = Size;
+    }
 }
 
 export class Icon {
@@ -63,7 +70,7 @@ export class IBannerConfig{
 export class BannerEditor {
     id: number;
     FirstTitle: Title = new Title();
-    SecondTitle: Title = new Title();
+    SecondTitle: Title = new Title(false, '', 'body', 'sm');
     Style: PepStyleType = 'weak';
     Color: textColor = 'system-primary';
     Icon: Icon = new Icon();

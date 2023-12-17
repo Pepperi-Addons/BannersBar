@@ -142,7 +142,7 @@ export class BlockEditorComponent implements OnInit {
             btn.id = i;
             
             btn.FirstTitle.Label = this.getOrdinal(i+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
-            
+            btn.SecondTitle.Label = this.translate.instant('EDITOR.CONTENT.SECOND_TITLE');
             banners.push(btn);
         }
 
@@ -159,6 +159,7 @@ export class BlockEditorComponent implements OnInit {
         let btn = new BannerEditor();
         btn.id = (this.configuration?.Banners.length);
         btn.FirstTitle.Label = this.getOrdinal(btn.id+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
+        btn.SecondTitle.Label = this.translate.instant('EDITOR.CONTENT.SECOND_TITLE');
         
         this.configuration?.Banners.push(btn);
         this.updateHostObject();  
