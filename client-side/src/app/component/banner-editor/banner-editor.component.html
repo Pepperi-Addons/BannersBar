@@ -49,6 +49,11 @@
                 [btnKey]="configuration?.Banners[id]?.FirstTitle?.Style">
         </pep-group-buttons-settings>
 
+        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="fontWeight" [header]="" class="margin-bottom"
+                                    [subHeader]="'EDITOR.CONTENT.FONT_WEIGHT' | translate"
+                                    [btnKey]="configuration?.Banners[id]?.FirstTitle?.FontWeight">
+        </pep-group-buttons-settings>
+
         <pep-group-buttons-settings 
                 pepResetConfigurationField="Banners[{{id}}].FirstTitle.Size" 
                 [hideReset]="configuration?.Banners[id]?.FirstTitle?.Size === configurationSource?.Banners[id]?.FirstTitle?.Size" 
@@ -75,6 +80,11 @@
                 [subHeader]="'EDITOR.CONTENT.STYLE' | translate"
                 [disabled]="!configuration?.Banners[id]?.SecondTitle.Use"
                 [btnKey]="configuration?.Banners[id]?.SecondTitle?.Style">
+        </pep-group-buttons-settings>
+
+        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="secFontWeight" [header]="" class="margin-bottom"
+                                    [subHeader]="'EDITOR.CONTENT.FONT_WEIGHT' | translate"
+                                    [btnKey]="configuration?.Banners[id]?.SecondTitle?.FontWeight">
         </pep-group-buttons-settings>
 
         <pep-group-buttons-settings 

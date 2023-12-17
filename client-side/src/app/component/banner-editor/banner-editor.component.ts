@@ -36,6 +36,8 @@ export class BannerEditorComponent implements OnInit {
     bannerColor: Array<PepButton> = [];
     iconPosition: Array<PepButton> = [];
     textStyle: Array<PepButton> = [];
+    fontWeight: Array<PepButton> = [];
+    secFontWeight:  Array<PepButton> = [];
     secTextStyle: Array<PepButton> = [];
     consumersList: Array<PepButton> = [];
 
@@ -80,6 +82,16 @@ export class BannerEditorComponent implements OnInit {
         this.secTextStyle = [
             { key: 'body', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.BODY'), callback: (event: any) => this.onFieldChange('SecondTitle.Style',event) },
             { key: 'heading', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.HEADING'), callback: (event: any) => this.onFieldChange('SecondTitle.Style',event) }
+        ];
+
+        this.fontWeight = [
+            { key: 'normal', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.NORMAL'), callback: (event: any) => this.onFieldChange('FirstTitle.FontWeight',event) },
+            { key: 'bold', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.BOLD'), callback: (event: any) => this.onFieldChange('FirstTitle.FontWeight',event) }
+        ];
+
+        this.secFontWeight = [
+            { key: 'normal', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.NORMAL'), callback: (event: any) => this.onFieldChange('SecondTitle.FontWeight',event) },
+            { key: 'bold', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.BOLD'), callback: (event: any) => this.onFieldChange('SecondTitle.FontWeight',event) }
         ];
 
     }

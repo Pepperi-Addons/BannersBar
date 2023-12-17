@@ -10,6 +10,7 @@ export type iconPosition = 'start' | 'end';
 export type titleStyle = 'body' | 'heading';
 export type WidthType = 'dynamic' | 'set' | 'stretch';
 export type ClickedArea = 'banner' | 'first-title' | 'second-title';
+export type FontWeight = 'normal' | 'bold';
 export class Alignment {
     Horizontal: PepHorizontalAlignment = 'left';
     Vertical: 'start' | 'middle' | 'end' = 'start';
@@ -26,12 +27,14 @@ export class Title {
     Label: string;
     Style: titleStyle;
     Size: PepSizeType;
+    FontWeight: FontWeight;
 
-    constructor(Use = false, Label = '', Style: titleStyle = 'body', Size: PepSizeType = 'lg'){
+    constructor(Use = false, Label = '', Style: titleStyle = 'body', Size: PepSizeType = 'lg', FontWeight: FontWeight = 'bold'){
         this.Use = Use;
         this.Label = Label;
         this.Style = Style;
         this.Size = Size;
+        this.FontWeight = FontWeight;
     }
 }
 
@@ -70,7 +73,7 @@ export class IBannerConfig{
 export class BannerEditor {
     id: number;
     FirstTitle: Title = new Title();
-    SecondTitle: Title = new Title(false, '', 'body', 'sm');
+    SecondTitle: Title = new Title(false, '', 'body', 'sm', 'normal');
     Style: PepStyleType = 'weak';
     Color: textColor = 'system-primary';
     Icon: Icon = new Icon();

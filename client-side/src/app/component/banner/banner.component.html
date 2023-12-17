@@ -2,13 +2,15 @@
                  [ngStyle]="{'justify-content' : !banner.Icon.UseIcon ? 'center' : 'unset'}">
                 <label class="first-title ellipsis" 
                       [ngClass]="[(banner.FirstTitle.Style == 'heading' ? 'title-' : 'body-') + banner.FirstTitle.Size,
-                                  banner.ClickedArea == 'first-title' ? 'underline-text' : '']">
+                                  banner.ClickedArea == 'first-title' ? 'underline-text' : '',
+                                  'text-' + banner.FirstTitle.FontWeight]">
                      {{banner.FirstTitle.Label || ''}}
                 </label>
                 <label class="second-title ellipsis" 
                       *ngIf="banner?.SecondTitle?.Use" 
                       [ngClass]="[(banner.SecondTitle.Style == 'heading' ? 'title-' : 'body-') + banner.SecondTitle.Size,
-                                   banner.ClickedArea == 'second-title' ? 'underline-text' : '']">
+                                   banner.ClickedArea == 'second-title' ? 'underline-text' : '',
+                                   'text-' + banner.SecondTitle.FontWeight]">
                       {{banner.SecondTitle.Label || ''}}
                </label>
             </div>

@@ -34,9 +34,18 @@
                 text-decoration: underline;
                 cursor: pointer;
             }
+
+            &.text-bold{
+                font-weight: 600 !important;
+            }
+
+            &.text-normal{
+                font-weight: 400 !important;
+            }
         }
         .first-title{
             white-space: unset !important;
         }
+
     }
 }

@@ -52,6 +52,7 @@
              "BANNER_TEXT": "Banner label",
              "BANNER_VALUE": "Banner value",
              "STYLE": "Font family",
+             "FONT_WEIGHT": "Font weight",
              "CHOOSE_STYLE": "Choose banner style",
              "STYLES":{
                  "WEAK": "Weak",
@@ -60,7 +61,9 @@
              },
              "TITLE_STYLE": {
                 "BODY": "Body",
-                "HEADING": "Heading"
+                "HEADING": "Heading",
+                "NORMAL": "Normal",
+                "BOLD": "Bold"
              },
              "TEXT_SIZE": "Text size",
              "ICON": {
