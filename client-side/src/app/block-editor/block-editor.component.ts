@@ -3,9 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from
 import { BannerBarService } from 'src/services/banner-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
 import { IBanner, BannerEditor, IBannerConfig } from '../banners-bar.model';
-import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
+import { PepAddonService } from '@pepperi-addons/ngx-lib';
 import { FlowService } from 'src/services/flow.service';
 import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
+import { config } from '../app.config';
 import { v4 as uuid } from 'uuid';
 
 @Component({
@@ -57,7 +58,8 @@ export class BlockEditorComponent implements OnInit {
 
     constructor(private translate: TranslateService,
                 private bannerBarService: BannerBarService,
-                private flowService: FlowService) {
+                private flowService: FlowService,
+                private pepAddonService: PepAddonService) {
         
     }
 
@@ -138,11 +140,12 @@ export class BlockEditorComponent implements OnInit {
         let banners: Array<BannerEditor> = [];
        
         for(var i=0; i < numOfCards; i++){
-            let btn = new BannerEditor();
-            btn.id = i;
+            //let btn = new BannerEditor();
+            //btn.id = i;
             
-            btn.FirstTitle.Label = this.getOrdinal(i+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
-            btn.SecondTitle.Label = this.translate.instant('EDITOR.CONTENT.SECOND_TITLE');
+            //btn.FirstTitle.Label = this.getOrdinal(i+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
+            //btn.SecondTitle.Label = this.translate.instant('EDITOR.CONTENT.SECOND_TITLE');
+            let btn = this.createNewBanner(i);
             banners.push(btn);
         }
 
@@ -156,13 +159,18 @@ export class BlockEditorComponent implements OnInit {
     }
 
     addNewButtonClick() {
-        let btn = new BannerEditor();
-        btn.id = (this.configuration?.Banners.length);
-        btn.FirstTitle.Label = this.getOrdinal(btn.id+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
-        btn.SecondTitle.Label = this.translate.instant('EDITOR.CONTENT.SECOND_TITLE');
-        
+        let btn = this.createNewBanner(this.configuration?.Banners.length);
         this.configuration?.Banners.push(btn);
         this.updateHostObject();  
+    }
+
+    createNewBanner(index: number = 0){
+        let btn = new BannerEditor();
+        btn.id = (index);
+        btn.FirstTitle.Label = this.getOrdinal(index+1) + this.translate.instant('EDITOR.GENERAL.BANNER');
+        btn.SecondTitle.Label = this.translate.instant('EDITOR.CONTENT.SECOND_TITLE');
+        btn.Icon.Url = this.pepAddonService.getAddonStaticFolder(config.AddonUUID) + 'assets/images/' + 'system-bolt.svg';
+        return btn;
     }
 
     onButtonEditClick(event){
