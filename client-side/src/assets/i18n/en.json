@@ -51,7 +51,7 @@
              "SECOND_TITLE": "2nd Title",
              "BANNER_TEXT": "Banner label",
              "BANNER_VALUE": "Banner value",
-             "STYLE": "Style",
+             "STYLE": "Font family",
              "CHOOSE_STYLE": "Choose banner style",
              "STYLES":{
                  "WEAK": "Weak",
