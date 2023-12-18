@@ -12,6 +12,10 @@
             }
         }
 
+        .pep-reset-configuration-field-container{
+            margin-bottom: -1rem !important;
+        }
+
         .group-buttons-container {
             //margin-bottom: 1rem;
             .rotate180{
@@ -35,10 +39,21 @@
                     }
                 }
             }
-        // }
 
         .mat-slider-disabled{
             opacity: 0.6;
+        }
+
+        pep-group-buttons-settings{
+            label{
+                margin-bottom: 0;
+            }
+        }
+
+        span{
+            &.ellipsis{
+                display: block;
+            }
         }
     } 
 

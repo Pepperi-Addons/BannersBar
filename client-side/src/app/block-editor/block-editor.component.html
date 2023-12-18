@@ -1,7 +1,7 @@
 <mat-tab-group  #tabGroup class="editor-tabs page-builder-editor-tabs" animationDuration="0ms">
     <mat-tab label="{{'EDITOR.TABS.GENERAL' | translate}}"> 
         <div>
-            <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.LAYOUT' | translate}}</label>
+            <span class="body-xl bold ellipsis">{{'EDITOR.GENERAL.LAYOUT' | translate}}</span>
             <pep-slider 
                     pepResetConfigurationField="BannerConfig.Structure.MaxColumns" 
                     [hideReset]="configuration?.BannerConfig?.Structure?.MaxColumns === configurationSource?.BannerConfig?.Structure?.MaxColumns"  
@@ -32,7 +32,6 @@
                 [btnKey]="configuration?.BannerConfig?.Structure?.Padding" [useNone]="false" [excludeKeys]="['xs','2xl']"
                 (btnkeyChange)="onFieldChange('Padding',$event)">
         </pep-group-buttons-settings>
-        <!-- <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.BORDER_RADIUS' | translate}}</label> -->
         <pep-group-buttons-settings 
                 pepResetConfigurationField="BannerConfig.Structure.BorderRadius" 
                 [hideReset]="configuration?.BannerConfig?.Structure?.BorderRadius === configurationSource?.BannerConfig?.Structure?.BorderRadius" 
@@ -52,7 +51,7 @@
         </div>
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
-        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNERS' | translate}}</label>
+        <span class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNERS' | translate}}</span>
         <div *ngIf="configuration?.Banners?.length > 0" (cdkDropListDropped)="drop($event)"  cdkDropList>
             <banner-editor *ngFor ="let currentBanner of configuration?.Banners;" 
                 [id]="currentBanner?.id" [selectedBanner]="selectedBanner" [showActions]="true" (hostEvents)='onHostObjectChange($event)'

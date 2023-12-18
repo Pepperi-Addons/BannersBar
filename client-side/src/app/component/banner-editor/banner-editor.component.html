@@ -13,7 +13,7 @@
         <!-- <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button> -->
     </div>
     <div class="editorCont" *ngIf="id == selectedBanner"> 
-        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNER_STYLE' | translate}}</label>
+        <span class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNER_STYLE' | translate}}</span>
         <div class="selectCont">
             <pep-select [label]="'EDITOR.CONTENT.COLOR.COLOR' | translate" [value]="configuration?.Banners[id]?.Color || 'system-primary'" 
                         [options]="bannerColor" (valueChange)="onFieldChange('Color',$event)" [emptyOption]="false" 
@@ -38,7 +38,7 @@
                 [btnKey]="configuration?.Banners[id]?.Icon?.Position">
         </pep-group-buttons-settings>
 
-        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.FIRST_TITLE' | translate}}</label>
+        <span class="body-xl bold ellipsis">{{'EDITOR.CONTENT.FIRST_TITLE' | translate}}</span>
         <pep-textbox [label]="'EDITOR.CONTENT.BANNER_TEXT' | translate" 
                     [value]="configuration?.Banners[id]?.FirstTitle?.Label" 
                     (valueChange)="onFieldChange('FirstTitle.Label',$event)">
