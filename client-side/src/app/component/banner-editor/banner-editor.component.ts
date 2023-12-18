@@ -34,6 +34,7 @@ export class BannerEditorComponent implements OnInit {
     bannerStyle: Array<PepButton> = [];
     clickedAreas: Array<PepButton> = [];
     bannerColor: Array<PepButton> = [];
+    fontSizes: Array<PepButton> = [];
     iconPosition: Array<PepButton> = [];
     textStyle: Array<PepButton> = [];
     fontWeight: Array<PepButton> = [];
@@ -61,6 +62,15 @@ export class BannerEditorComponent implements OnInit {
             { key: 'system-primary-invert', value: this.translate.instant('EDITOR.CONTENT.COLOR.TYPE.SYSTEM_INVERT') },
             { key: 'user-primary', value: this.translate.instant('EDITOR.CONTENT.COLOR.TYPE.PRIMARY') },
             { key: 'user-secondary', value: this.translate.instant('EDITOR.CONTENT.COLOR.TYPE.SECONDARY') }
+        ]
+
+        this.fontSizes = [
+            { key: 'xs', value: this.translate.instant('EDITOR.CONTENT.FONT_SIZE.XS') },
+            { key: 'sm', value: this.translate.instant('EDITOR.CONTENT.FONT_SIZE.SM') },
+            { key: 'md', value: this.translate.instant('EDITOR.CONTENT.FONT_SIZE.MD') },
+            { key: 'lg', value: this.translate.instant('EDITOR.CONTENT.FONT_SIZE.LG') },
+            { key: 'xl', value: this.translate.instant('EDITOR.CONTENT.FONT_SIZE.XL') },
+            { key: '2xl', value: this.translate.instant('EDITOR.CONTENT.FONT_SIZE.2XL') }
         ]
 
         this.clickedAreas = [

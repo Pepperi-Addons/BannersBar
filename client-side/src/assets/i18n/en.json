@@ -46,6 +46,14 @@
                     "SECONDARY": "Secondary"
                  }
             },
+            "FONT_SIZE": {
+                "XS": "XS",
+                "SM": "SM",
+                "MD": "MD",
+                "LG": "LG",
+                "XL": "XL",
+                "2XL": "2XL"
+            },
              "BANNERS": "Banners",
              "FIRST_TITLE": "1st Title",
              "SECOND_TITLE": "2nd Title",
@@ -65,7 +73,7 @@
                 "NORMAL": "Normal",
                 "BOLD": "Bold"
              },
-             "TEXT_SIZE": "Text size",
+             "TEXT_SIZE": "Font size",
              "ICON": {
                  "TITLE": "Icon",
                  "CHOOSE_ICON": "Choose icon",

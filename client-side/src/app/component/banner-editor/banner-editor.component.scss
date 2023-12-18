@@ -25,10 +25,14 @@
             margin-bottom: ngx-variables.$form-spacing;
         }
 
-        .selectCont{
-            display: grid;
-            gap: var(--pep-spacing-md, 0.75rem);
-            grid-template-columns: 1fr 1fr;
+        pep-select{
+            width: 100%;
+            
+            &.selectCont{
+                display: grid;
+                gap: var(--pep-spacing-md, 0.75rem);
+                grid-template-columns: 1fr 1fr;
+            }
         }
         .margin-bottom{
             margin-bottom: var(--pep-form-spacing, 1rem);

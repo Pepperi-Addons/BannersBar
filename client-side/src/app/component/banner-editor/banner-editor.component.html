@@ -54,15 +54,17 @@
                                     [btnKey]="configuration?.Banners[id]?.FirstTitle?.FontWeight">
         </pep-group-buttons-settings>
 
-        <pep-group-buttons-settings 
-                pepResetConfigurationField="Banners[{{id}}].FirstTitle.Size" 
-                [hideReset]="configuration?.Banners[id]?.FirstTitle?.Size === configurationSource?.Banners[id]?.FirstTitle?.Size" 
-                [resetHostEvents]="hostEvents"
-                [groupType]="'sizes'" 
-                [subHeader]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
-                [btnKey]="configuration?.Banners[id]?.FirstTitle?.Size" [useNone]="false" [excludeKeys]="['2xl']" class="margin-bottom"
-                (btnkeyChange)="onFieldChange('FirstTitle.Size',$event)">
-        </pep-group-buttons-settings>
+        <pep-select pepResetConfigurationField="Banners[{{id}}].FirstTitle.Size" 
+                    [hideReset]="configuration?.Banners[id]?.FirstTitle?.Size === configurationSource?.Banners[id]?.FirstTitle?.Size" 
+                    [resetHostEvents]="hostEvents"
+                
+                    [label]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
+                    [value]="configuration?.Banners[id]?.FirstTitle?.Size"
+                    [options]="fontSizes" 
+                    (valueChange)="onFieldChange('FirstTitle.Size',$event)" 
+                    [emptyOption]="false" 
+                    styleType="regular">
+        </pep-select>
 
         <pep-checkbox class="checkbox-as-title" 
             [value]="configuration?.Banners[id]?.SecondTitle?.Use || false" 
@@ -84,20 +86,21 @@
 
         <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="secFontWeight" [header]="" class="margin-bottom"
                                     [subHeader]="'EDITOR.CONTENT.FONT_WEIGHT' | translate"
+                                    [disabled]="!configuration?.Banners[id]?.SecondTitle.Use"
                                     [btnKey]="configuration?.Banners[id]?.SecondTitle?.FontWeight">
         </pep-group-buttons-settings>
 
-        <pep-group-buttons-settings 
-                pepResetConfigurationField="Banners[{{id}}].SecondTitle.Size" 
+        <pep-select pepResetConfigurationField="Banners[{{id}}].SecondTitle.Size" 
                 [hideReset]="configuration?.Banners[id]?.SecondTitle?.Size === configurationSource?.Banners[id]?.SecondTitle?.Size" 
                 [resetHostEvents]="hostEvents"
-                [groupType]="'sizes'" 
-                [subHeader]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
                 [disabled]="!configuration?.Banners[id]?.SecondTitle.Use"
-                [btnKey]="configuration?.Banners[id]?.SecondTitle?.Size" [useNone]="false" [excludeKeys]="['2xl']" class="margin-bottom"
-                (btnkeyChange)="onFieldChange('SecondTitle.Size',$event)">
-        </pep-group-buttons-settings>
-
+                [label]="'EDITOR.CONTENT.TEXT_SIZE' | translate"
+                [value]="configuration?.Banners[id]?.SecondTitle?.Size"
+                [options]="fontSizes" 
+                (valueChange)="onFieldChange('SecondTitle.Size',$event)" 
+                [emptyOption]="false" 
+                styleType="regular">
+</pep-select>
         <!-- <div>
             <label class="body-lg bold ellipsis">{{'EDITOR.CONTENT.ON_CLICK_FLOW' | translate}}</label> 
             <label class="body-xs normal">{{'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate}}</label>
