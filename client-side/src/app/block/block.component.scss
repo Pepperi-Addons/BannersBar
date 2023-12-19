@@ -73,7 +73,7 @@
         }
         
         &.strong ::ng-deep {
-            @include mixins.state-strong-default('color-system-primary-invert');
+           /* @include mixins.state-strong-default('color-system-primary-invert');*/
 
             .icon-button.strong,
             .icon-button.regular,
