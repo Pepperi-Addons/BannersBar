@@ -17,22 +17,24 @@ router.post('/on_block_load', async (req, res) => {
     const configuration = req?.body?.Configuration;
     let configurationRes = configuration;
     const state = req.body.State;
+    
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.BannerConfig?.OnLoadFlow){
-        const cpiService = new BannerCpiService();
-        //CALL TO FLOWS AND SET CONFIGURATION
-        const result: any = await cpiService.getOptionsFromFlow(configuration.BannerConfig.OnLoadFlow || [], state, req.context, configuration);
-        configurationRes = result?.configuration || configuration;
+        try{
+            const cpiService = new BannerCpiService();
+            //CALL TO FLOWS AND SET CONFIGURATION
+            const result: any = await cpiService.getOptionsFromFlow(configuration.BannerConfig.OnLoadFlow || [], state, req.context, configuration);
+            //allways return configuration (even if the flow don't)
+            configurationRes = result?.configuration || configuration;
+        }
+        catch(err){
+            configurationRes = configuration;
+        }
     }
-
-    const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
-    difference.forEach(diff => {
-        state[diff[0]] = diff[1];
-    });
 
     res.json({
         State: state,
-        Configuration: configurationRes,
+        Configuration: configurationRes
     });
 });
 
@@ -41,15 +43,7 @@ router.post('/run_button_click_event', async (req, res) => {
     const btnKey = req.body.ButtonKey;
     const configuration = req?.body?.Configuration;
 
-    for (const prop in configuration) {
-        // skip loop if the property dont exits on state object
-        if (state.hasOwnProperty(prop)) {
-            //update configuration with the object from state
-            configuration[prop] = state[prop];
-        }
-    }
-
-    let configurationRes = configuration;
+    let configurationRes = null;
     const banner = configuration?.Banners?.filter(b => { return b.ButtonKey === btnKey })[0] || null;
 
     // check if flow configured to on load --> run flow (instaed of onload event)
@@ -57,12 +51,8 @@ router.post('/run_button_click_event', async (req, res) => {
         const cpiService = new BannerCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(banner.Flow || [], state, req.context, configuration);
-        configurationRes = result?.configuration || configuration;
+        configurationRes = result?.configuration;
     }
-    const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
-    difference.forEach(diff => {
-        state[diff[0]] = diff[1];
-    });
 
     res.json({
         State: state,
@@ -73,7 +63,6 @@ router.post('/run_button_click_event', async (req, res) => {
 router.post('/on_block_state_change', async (req, res) => {
     const state = req.body.State || {};
     const changes = req.body.Changes || {};
-    //const configuration = req.body.Configuration;
 
     const mergeState = {...state, ...changes};
 
