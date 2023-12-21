@@ -43,8 +43,10 @@ export class BlockComponent implements OnInit {
     }
 
     private registerStateChange(data: {state: any, configuration: any}) {
-        //this.configuration = data.configuration;
-        if(data?.configuration){
+        if(!this.configuration && data?.configuration){
+            this.configuration = data.configuration;
+        }
+        else if(data?.configuration){
             this.mergeConfiguration(data.configuration);
         }
     }
