@@ -43,7 +43,21 @@ export class BlockComponent implements OnInit {
     }
 
     private registerStateChange(data: {state: any, configuration: any}) {
-        this.configuration = data.configuration;
+        if(!this.configuration && data?.configuration){
+            this.configuration = data.configuration;
+        }
+        else if(data?.configuration){
+            this.mergeConfiguration(data.configuration);
+        }
+    }
+
+    private mergeConfiguration(newConfiguration){
+        for (const prop in this.configuration) {
+            // skip loop if the property dont exits on new object
+            if (!newConfiguration.hasOwnProperty(prop)) continue;
+            //update configuration with the object from new object
+            this.configuration[prop] = newConfiguration[prop]; 
+        }
     }
 
     onBannerClick(event, bannerID){
