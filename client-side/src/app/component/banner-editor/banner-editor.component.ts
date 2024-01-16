@@ -106,8 +106,8 @@ export class BannerEditorComponent implements OnInit {
         ];
 
         this.actiosMenu = [
-            { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') },
-            { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') }
+            { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') },
+            { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') }
         ]
 
     }
