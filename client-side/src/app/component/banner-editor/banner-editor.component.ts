@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
 import { BannerEditor, IBanner }  from '../../banners-bar.model';
 import { FlowService } from '../../../services/flow.service';
+import { IPepMenuItemClickEvent, PepMenuItem } from '@pepperi-addons/ngx-lib/menu';
 
 interface groupButtonArray {
     key: string; 
@@ -41,7 +42,7 @@ export class BannerEditorComponent implements OnInit {
     secFontWeight:  Array<PepButton> = [];
     secTextStyle: Array<PepButton> = [];
     consumersList: Array<PepButton> = [];
-
+    actiosMenu: Array<PepMenuItem> = [];
 
     constructor(
         private translate: TranslateService,
@@ -104,6 +105,11 @@ export class BannerEditorComponent implements OnInit {
             { key: 'bold', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.BOLD'), callback: (event: any) => this.onFieldChange('SecondTitle.FontWeight',event) }
         ];
 
+        this.actiosMenu = [
+            { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') },
+            { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') }
+        ]
+
     }
 
     ngAfterViewInit(): void {
@@ -116,12 +122,13 @@ export class BannerEditorComponent implements OnInit {
         return n + (s[(v-20)%10] || s[v] || s[0]);
     }
 
-    onRemoveClick() {
-        this.removeClick.emit({id: this.id});
-    }
-
-    onDuplicateClick(){
-        this.duplicateClick.emit({id: this.id});
+    onMenuItemClick(item: IPepMenuItemClickEvent){
+        if(item?.source?.key == 'delete'){
+            this.removeClick.emit({id: this.id});
+        }
+        else if(item?.source?.key == 'duplicate'){
+            this.duplicateClick.emit({id: this.id});
+        }
     }
 
     onEditClick() {

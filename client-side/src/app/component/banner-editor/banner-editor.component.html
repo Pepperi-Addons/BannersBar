@@ -7,11 +7,12 @@
         <span class="body-sm ellipsis">{{id + 1}}.&nbsp;</span>
         <span class="body-sm color-link bold ellipsis" title="{{configuration?.Banners[id]?.FirstTitle?.Label || ''}}">{{configuration.Banners[id].FirstTitle.Label || 'TITLE'}}</span>
     </div>
-    <div class="actions" *ngIf="showActions">
-        <pep-button sizeType="xs" iconName="system_copy" title="{{'EDITOR.CONTENT.DUPLICATE' | translate}}" (buttonClick)="onDuplicateClick();"></pep-button>
-        <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();" title="{{'EDITOR.CONTENT.DELETE' | translate}}"></pep-button>
-        <!-- <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button> -->
-    </div>
+    <pep-menu
+        *ngIf="showActions"
+        sizeType="xs"
+        [items]="actiosMenu"
+        (menuItemClick)="onMenuItemClick($event)">
+    </pep-menu>
     <div class="editorCont" *ngIf="id == selectedBanner"> 
         <span class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNER_STYLE' | translate}}</span>
         <div class="selectCont">
