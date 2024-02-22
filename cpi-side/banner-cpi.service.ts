@@ -45,7 +45,7 @@ class BannerCpiService {
     }
 
     async setUserTranslations(configuration: any): Promise<void> {
-        
+
         if (configuration?.Banners?.length > 0) {
             for (let index = 0; index < configuration.Banners.length; index++) {
                 const banner = configuration.Banners[index];
