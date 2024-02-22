@@ -17,7 +17,7 @@ router.post('/on_block_load', async (req, res) => {
     const configuration = req?.body?.Configuration;
     const cpiService = new BannerCpiService();
     const state = req.body.State;
-    
+
     // Set translations;
     cpiService.setUserTranslations(configuration);
     let configurationRes = configuration;

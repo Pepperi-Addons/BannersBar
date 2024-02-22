@@ -49,7 +49,7 @@ class BannerCpiService {
         if (configuration?.Banners?.length > 0) {
             for (let index = 0; index < configuration.Banners.length; index++) {
                 const banner = configuration.Banners[index];
-                // configuration.title = await pepperi.translations.translate({ key: configuration.title });
+
                 if (banner.FirstTitle?.Label) {
                     banner.FirstTitle.Label = await pepperi.translations.translate({ key: banner.FirstTitle.Label });
                 }
