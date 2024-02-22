@@ -22,8 +22,7 @@ export class BannerEditorComponent implements OnInit {
     @Input() id: number;
     @Input() selectedBanner: number;
     @Input() isDraggable = false;
-    @Input() showActions = true;
-
+    
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
     @Output() removeClick: EventEmitter<any> = new EventEmitter();
     @Output() editClick: EventEmitter<any> = new EventEmitter();
@@ -42,7 +41,7 @@ export class BannerEditorComponent implements OnInit {
     secFontWeight:  Array<PepButton> = [];
     secTextStyle: Array<PepButton> = [];
     consumersList: Array<PepButton> = [];
-    actiosMenu: Array<PepMenuItem> = [];
+    actionsMenu: Array<PepMenuItem> = [];
 
     constructor(
         private translate: TranslateService,
@@ -105,7 +104,7 @@ export class BannerEditorComponent implements OnInit {
             { key: 'bold', value: this.translate.instant('EDITOR.CONTENT.TITLE_STYLE.BOLD'), callback: (event: any) => this.onFieldChange('SecondTitle.FontWeight',event) }
         ];
 
-        this.actiosMenu = [
+        this.actionsMenu = [
             { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') },
             { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') }
         ]
@@ -131,8 +130,8 @@ export class BannerEditorComponent implements OnInit {
         }
     }
 
-    onEditClick() {
-        this.editClick.emit({id: this.id});
+    onEditClick(event) {
+        this.editClick.emit({id: event ? this.id : -1});
     }
 
     onFieldChange(key, event){

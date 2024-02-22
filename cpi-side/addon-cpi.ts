@@ -15,12 +15,16 @@ router.get('/test', (req, res) => {
 
 router.post('/on_block_load', async (req, res) => {
     const configuration = req?.body?.Configuration;
+    const cpiService = new BannerCpiService();
     let configurationRes = configuration;
     const state = req.body.State;
+
+    // Set translations;
+    cpiService.setUserTranslations(configurationRes);
+
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.BannerConfig?.OnLoadFlow){
         try {
-            const cpiService = new BannerCpiService();
             //CALL TO FLOWS AND SET CONFIGURATION
             const result: any = await cpiService.getOptionsFromFlow(configuration.BannerConfig.OnLoadFlow || [], state, req.context, configuration);
             //allways return configuration (even if the flow don't)

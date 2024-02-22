@@ -1,67 +1,73 @@
-<mat-tab-group  #tabGroup class="editor-tabs page-builder-editor-tabs" animationDuration="0ms">
+<mat-tab-group  #tabGroup class=" page-builder-editor-tabs" animationDuration="0ms">
     <mat-tab label="{{'EDITOR.TABS.GENERAL' | translate}}"> 
-        <div>
-            <span class="body-xl bold ellipsis">{{'EDITOR.GENERAL.LAYOUT' | translate}}</span>
-            <pep-slider 
-                    pepResetConfigurationField="BannerConfig.Structure.MaxColumns" 
-                    [hideReset]="configuration?.BannerConfig?.Structure?.MaxColumns === configurationSource?.BannerConfig?.Structure?.MaxColumns"  
+        <div class="page-builder-editor-tab">
+            <div>
+                <label class="editor-title">{{'EDITOR.GENERAL.LAYOUT' | translate}}</label>
+                <pep-slider 
+                        pepResetConfigurationField="BannerConfig.Structure.MaxColumns" 
+                        [hideReset]="configuration?.BannerConfig?.Structure?.MaxColumns === configurationSource?.BannerConfig?.Structure?.MaxColumns"  
+                        [resetHostEvents]="hostEvents"
+                        [label]="'EDITOR.GENERAL.MAX_COLUMNS' | translate" 
+                        [hint]="configuration?.BannerConfig?.Structure?.MaxColumns?.toString()" 
+                        [minValue]="1" 
+                        [maxValue]="12"
+                        [disabled]="false" 
+                        [value]="configuration?.BannerConfig?.Structure?.MaxColumns"
+                        [background]="'RGBA(0,0,0,50%)'"
+                        (inputChange)="onFieldChange('MaxColumns',$event)">
+                </pep-slider>
+            </div>
+            <pep-group-buttons-settings 
+                        pepResetConfigurationField="BannerConfig.Structure.Gap" 
+                        [hideReset]="configuration?.BannerConfig?.Structure?.Gap === configurationSource?.BannerConfig?.Structure?.Gap" 
+                        [resetHostEvents]="hostEvents" 
+                        [groupType]="'sizes'" 
+                        [subHeader]="'EDITOR.GENERAL.GAP' | translate"
+                        [btnKey]="configuration?.BannerConfig?.Structure?.Gap" 
+                        [useNone]="true" 
+                        [excludeKeys]="['lg','xl','2xl']"
+                        (btnkeyChange)="onFieldChange('Gap',$event)">
+            </pep-group-buttons-settings>
+        
+            <pep-group-buttons-settings [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.PADDING' | translate"
+                    [btnKey]="configuration?.BannerConfig?.Structure?.Padding" [useNone]="false" [excludeKeys]="['xs','2xl']"
+                    (btnkeyChange)="onFieldChange('Padding',$event)">
+            </pep-group-buttons-settings>
+
+            <div class="editor-separator"></div>
+
+            <pep-group-buttons-settings 
+                    pepResetConfigurationField="BannerConfig.Structure.BorderRadius" 
+                    [hideReset]="configuration?.BannerConfig?.Structure?.BorderRadius === configurationSource?.BannerConfig?.Structure?.BorderRadius" 
                     [resetHostEvents]="hostEvents"
-                    [label]="'EDITOR.GENERAL.MAX_COLUMNS' | translate" 
-                    [hint]="configuration?.BannerConfig?.Structure?.MaxColumns?.toString()" 
-                    [minValue]="1" 
-                    [maxValue]="12"
-                    [disabled]="false" 
-                    [value]="configuration?.BannerConfig?.Structure?.MaxColumns"
-                    [background]="'RGBA(0,0,0,50%)'"
-                    (inputChange)="onFieldChange('MaxColumns',$event)">
-            </pep-slider>
-        </div>
-        <pep-group-buttons-settings 
-                    pepResetConfigurationField="BannerConfig.Structure.Gap" 
-                    [hideReset]="configuration?.BannerConfig?.Structure?.Gap === configurationSource?.BannerConfig?.Structure?.Gap" 
-                    [resetHostEvents]="hostEvents" 
                     [groupType]="'sizes'" 
-                    [subHeader]="'EDITOR.GENERAL.GAP' | translate"
-                    [btnKey]="configuration?.BannerConfig?.Structure?.Gap" 
-                    [useNone]="true" 
-                    [excludeKeys]="['lg','xl','2xl']"
-                    (btnkeyChange)="onFieldChange('Gap',$event)">
-        </pep-group-buttons-settings>
-    
-        <pep-group-buttons-settings [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.PADDING' | translate"
-                [btnKey]="configuration?.BannerConfig?.Structure?.Padding" [useNone]="false" [excludeKeys]="['xs','2xl']"
-                (btnkeyChange)="onFieldChange('Padding',$event)">
-        </pep-group-buttons-settings>
-        <pep-group-buttons-settings 
-                pepResetConfigurationField="BannerConfig.Structure.BorderRadius" 
-                [hideReset]="configuration?.BannerConfig?.Structure?.BorderRadius === configurationSource?.BannerConfig?.Structure?.BorderRadius" 
-                [resetHostEvents]="hostEvents"
-                [groupType]="'sizes'" 
-                [header]="'EDITOR.GENERAL.BORDER_RADIUS' | translate" 
-                [subHeader]="'EDITOR.GENERAL.CHOOSE_BORDER_RADIUS' | translate"
-                [btnKey]="configuration?.BannerConfig?.Structure?.BorderRadius" 
-                [useNone]="true" [excludeKeys]="['lg','xs','2xl']"
-                (btnkeyChange)="onFieldChange('BorderRadius',$event)">
-        </pep-group-buttons-settings>
-  
-       <div>
-            <label class="body-lg bold ellipsis">{{'EDITOR.GENERAL.ON_LOAD_FLOW' | translate}}</label>
-            <pep-field-title [label]="'EDITOR.GENERAL.FLOW_DESCRIPTION' | translate"></pep-field-title>
-            <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+                    [header]="'EDITOR.GENERAL.BORDER_RADIUS' | translate" 
+                    [subHeader]="'EDITOR.GENERAL.CHOOSE_BORDER_RADIUS' | translate"
+                    [btnKey]="configuration?.BannerConfig?.Structure?.BorderRadius" 
+                    [useNone]="true" [excludeKeys]="['lg','xs','2xl']"
+                    (btnkeyChange)="onFieldChange('BorderRadius',$event)">
+            </pep-group-buttons-settings>
+            <div class="editor-separator"></div>
+            <div>
+                <label class="editor-title">{{'EDITOR.GENERAL.ON_LOAD_FLOW' | translate}}</label>
+                <pep-field-title [label]="'EDITOR.GENERAL.FLOW_DESCRIPTION' | translate"></pep-field-title>
+                <pep-flow-picker-button [flowHostObject]="flowHostObject" styleType="regular" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+            </div>
         </div>
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
-        <span class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BANNERS' | translate}}</span>
-        <div *ngIf="configuration?.Banners?.length > 0" (cdkDropListDropped)="drop($event)"  cdkDropList>
-            <banner-editor *ngFor ="let currentBanner of configuration?.Banners;" 
-                [id]="currentBanner?.id" [selectedBanner]="selectedBanner" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
-                [isDraggable]="true" (editClick)='onButtonEditClick($event);' (flowChange)='onBannerFlowChanged($event);'  (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
-                [configuration]="configuration" [configurationSource]="configurationSource"
-                cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
-            </banner-editor>
+        <div class="page-builder-editor-tab">
+            <!-- <label class="editor-title">{{'EDITOR.CONTENT.BANNERS' | translate}}</label> -->
+            <div *ngIf="configuration?.Banners?.length > 0" (cdkDropListDropped)="drop($event)" cdkDropList class="available-banners">
+                <banner-editor *ngFor ="let currentBanner of configuration?.Banners;" 
+                    [id]="currentBanner?.id" [selectedBanner]="selectedBanner" (hostEvents)='onHostObjectChange($event)'
+                    [isDraggable]="true" (editClick)='onButtonEditClick($event);' (flowChange)='onBannerFlowChanged($event);'  (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
+                    [configuration]="configuration" [configurationSource]="configurationSource"
+                    cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
+                </banner-editor>
+            </div>
+            <pep-button class="add-content-button" value="{{'EDITOR.CONTENT.ADD_BANNER' | translate}}" styleType="regular" iconName="number_plus" iconPosition="end"
+                    (buttonClick)="addNewButtonClick()"></pep-button>
         </div>
-
-        <pep-button class="add-content-button" value="{{'EDITOR.CONTENT.ADD_BANNER' | translate}}" styleType="regular" iconName="number_plus" iconPosition="end"
-                (buttonClick)="addNewButtonClick()"></pep-button>
     </mat-tab>
 </mat-tab-group>

@@ -91,7 +91,7 @@
              "FLOW_DESCRIPTION": "When clickd",
              "CONSUMER": "Cunsumer",
              "SELECT_CONSUMER": "Select a cunsumer",
-             "ADD_BANNER": "Add new banner",
+             "ADD_BANNER": "Add banner",
              "CLICKED_AREA":{
                 "CLICK_EVENT": "Click event",
                 "WHEN_CLICK": "When click",

@@ -19,6 +19,8 @@ import { PepFlowPickerButtonModule } from '@pepperi-addons/ngx-composite-lib/flo
 import { PepFieldTitleModule } from '@pepperi-addons/ngx-lib/field-title';
 import { PepSelectModule } from '@pepperi-addons/ngx-lib/select';
 import { PepTextareaModule } from '@pepperi-addons/ngx-lib/textarea';
+import { PepDraggableItemsModule } from '@pepperi-addons/ngx-lib/draggable-items';
+
 import { config } from '../../app.config';
 import { PepIconRegistry, pepIconSystemBin, pepIconSystemMove, pepIconArrowBack, pepIconArrowBackRight, pepIconArrowDown, pepIconArrowDownAlt, pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt} from '@pepperi-addons/ngx-lib/icon';
 
@@ -52,6 +54,7 @@ const pepIcons = [
         PepFlowPickerButtonModule,
         PepFieldTitleModule,
         PepTextareaModule,
+        PepDraggableItemsModule,
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,
