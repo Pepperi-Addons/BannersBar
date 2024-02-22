@@ -16,11 +16,11 @@ router.get('/test', (req, res) => {
 router.post('/on_block_load', async (req, res) => {
     const configuration = req?.body?.Configuration;
     const cpiService = new BannerCpiService();
-    let configurationRes = configuration;
     const state = req.body.State;
-
+    
     // Set translations;
-    cpiService.setUserTranslations(configurationRes);
+    cpiService.setUserTranslations(configuration);
+    let configurationRes = configuration;
 
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.BannerConfig?.OnLoadFlow){
