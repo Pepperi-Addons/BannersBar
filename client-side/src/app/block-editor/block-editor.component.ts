@@ -19,9 +19,16 @@ export class BlockEditorComponent implements OnInit {
     @Input()
     set hostObject(value: any) {
         if (value && value.configuration && Object.keys(value.configuration).length) {
-                this._configuration = value.configuration;
+                // Override only if the configuration is not the same object
+                if (JSON.stringify(this._configuration) !== JSON.stringify(value.configuration)) {
+                    this._configuration = value.configuration;
+                }
+
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
-                    this.configurationSource = value.configurationSource;
+                    // Override only if the configuration is not the same object
+                    if (JSON.stringify(this.configurationSource) !== JSON.stringify(value.configurationSource)) {
+                        this.configurationSource = value.configurationSource;
+                    }
                 }
                 //prepare the flow host hobject
                 this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.BannerConfig?.OnLoadFlow || null)); 
